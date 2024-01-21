@@ -27,12 +27,12 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
     Servo SRV_R = hardwareMap.get(Servo.class, "ramp_srv");
 
 //**********************************************************************************
-//  Comment form Mr. Fisher & Mr. Nair
+// ADAM: Comment
 // New hubs are horizontal and 180 degrees off from each other. VERIFY THIS CODE and update comments.
 // Remove this comment when checked.
 //**********************************************************************************
   
-    //Since our Exp. Hub is rotated and placed vertically, we have to configure the orientation on bot
+    // Since our Exp. Hub is rotated and placed vertically, we have to configure the orientation on bot
     IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
             RevHubOrientationOnRobot.LogoFacingDirection.UP,
             RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
@@ -63,7 +63,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             }
 
             //---------------------Gamepad 2 Controls/Arm Movement----------------------
-            //Hotkeys (Automation)
+            // Hotkeys (Automation)
             if (gamepad2.y)
                 selection = 1;
             if (gamepad2.b)
@@ -74,7 +74,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
                 selection = 4;
 
             // Show the elapsed game time and wheel power.
-            //Useful telemetry data incase needed for testing and to find heading of robot
+            // Useful telemetry data incase needed for testing and to find heading of robot
             telemetry.addData("Left Front: ", MTR_LF.getPower());
             telemetry.addData("Left Back: ", MTR_LB.getPower());
             telemetry.addData("Right Front: ", MTR_RF.getPower());
@@ -86,18 +86,18 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
     public void drive(){
         //---------------------Gamepad 1 Controls/Drivetrain Movement----------------------
 
-        double y = -gamepad1.left_stick_y; //Reversed Value
-        double x = gamepad1.left_stick_x * 1.7 ; //The double value on the left is a sensitivity setting (change when needed)
-        double rx = gamepad1.right_stick_x; //Rotational Value
+        double y = -gamepad1.left_stick_y; // Reversed Value
+        double x = gamepad1.left_stick_x * 1.7 ; // The double value on the left is a sensitivity setting (change when needed)
+        double rx = gamepad1.right_stick_x; // Rotational Value
 
-        //Find the first angle (Yaw) to get the robot heading
+        // Find the first angle (Yaw) to get the robot heading
         botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
-        //Translate to robot heading from field heading for motor values
+        // Translate to robot heading from field heading for motor values
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
 
-        //Denominator is the largest motor power
+        // Denominator is the largest motor power
         double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
         double frontLeftPower = (rotY + rotX + rx) / denominator;
         double backLeftPower = (rotY - rotX + rx) / denominator;
@@ -112,22 +112,24 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
 
     public void armMovement(int selection){
         //---------------------Gamepad 3 Controls/Arm Movement----------------------
-        //Need code from aarush's laptop for this?
+        // TODO: Need code from aarush's laptop for this?
         System.out.println("filler");
     }
 
     public void initialize(){
+        // ADAM: Initialize EVERYTHING here including positions for intake, ramp, arms, etc.
+        
         //---------------------Start of Match----------------------
         SRV_R.setPosition(0.37); //110 degrees
-        MTR_I.setPower(-0.5);
-        sleep(500);    // This might need to be a little longer...
+        MTR_I.setPower(-0.5);  // ADAM: These should all be set as global static variables...
+        sleep(500);    // ADAM: This might need to be a little longer...
         MTR_I.setPower(0);
     }
 
 
     public void pickup(){
         //---------------------Gamepad 1 Controls/Intake Movement----------------------
-        SRV_R.setPosition(.39);//115 degrees
+        SRV_R.setPosition(.39);//115 degrees  // ADAM: These should also be set as globals up top and named (UP, DOWN, STORE).
         sleep(1000);
         MTR_I.setPower(1);
     }
@@ -136,7 +138,8 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
     public void storage(){
         //---------------------Gamepad 1 Controls/Ramp Movement----------------------
         MTR_I.setPower(0);
-        SRV_R.setPosition(0.37); //110 degrees
+        SRV_R.setPosition(0.37); //110 degrees  // ADAM: These should also be set as globals up top and named (UP, DOWN, STORE).
+                                                // Also create a current Ramp position global variable (something like rampCurPos) so we always now what state it is in.
     }
 }
 
