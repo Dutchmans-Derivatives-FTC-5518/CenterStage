@@ -16,8 +16,17 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class FieldCentric_Comp_Bot extends LinearOpMode{
     private int selection = 0;
     private double botHeading;
-    DcMotorEx leftArm = (DcMotorEx) hardwareMap.dcMotor.get("left_arm");   // These varbiales do not match wiki documentation. Update.
-    DcMotorEx rightArm = (DcMotorEx) hardwareMap.dcMotor.get("right_arm"); // See above.
+
+    private static double RampDownPos = 0.39
+    private static double RampStorePos = 0.37
+    private static double RampUpPos = 0.0
+
+    private boolean isRampDown = false
+    private boolean isRampStore = false
+    private boolean isRampUp = true
+    
+    DcMotorEx MTR_LA = (DcMotorEx) hardwareMap.dcMotor.get("left_viper_mtr");   // These varbiales do not match wiki documentation. Update.
+    DcMotorEx MTR_RA = (DcMotorEx) hardwareMap.dcMotor.get("right_viper_mtr"); // See above.
     DcMotor MTR_LF = hardwareMap.dcMotor.get("left_front_mtr");
     DcMotor MTR_LB = hardwareMap.dcMotor.get("left_back_mtr");
     DcMotor MTR_RF = hardwareMap.dcMotor.get("right_front_mtr");
@@ -26,21 +35,17 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
     IMU imu = hardwareMap.get(IMU.class, "imu");
     Servo SRV_R = hardwareMap.get(Servo.class, "ramp_srv");
 
-//**********************************************************************************
-//  Comment form Mr. Fisher & Mr. Nair
-// New hubs are horizontal and 180 degrees off from each other. VERIFY THIS CODE and update comments.
-// Remove this comment when checked.
-//**********************************************************************************
+
 /*
     TODO:
-        1. Check IMU parameters
-        2. Static variables for ramp position
-        3. Global variables to check ramp position
-        4. Implement arm height code
-        5. Fix sleep settings and fine tune during testing
+        1. Check IMU parameters (Done)
+        2. Static variables for ramp position (Done)
+        3. Global variables to check ramp position (Done)
+        4. Implement arm height code (WIP)
+        5. Fix sleep settings and fine tune during testing (WIP)
 */
     
-    //Since our Exp. Hub is rotated and placed vertically, we have to configure the orientation on bot
+    //Standard IMU Configuration
     IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
             RevHubOrientationOnRobot.LogoFacingDirection.UP,
             RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
@@ -68,6 +73,9 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             }
             if(gamepad1.dpad_down){
                 storage();
+            }
+            if(gamepad1.dpad_left){
+                up();
             }
 
             //---------------------Gamepad 2 Controls/Arm Movement----------------------
@@ -126,18 +134,24 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
 
     public void initialize(){
         //---------------------Start of Match----------------------
-        SRV_R.setPosition(0.37); //110 degrees
+        SRV_R.setPosition(RampStorePos); //110 degrees
         MTR_I.setPower(-0.5);
-        sleep(500);    // This might need to be a little longer...
+        sleep(1500);    // This might need to be a little longer...
         MTR_I.setPower(0);
+        isRampDown = false
+        isRampStore = true
+        isRampUp = false
     }
 
 
     public void pickup(){
         //---------------------Gamepad 1 Controls/Intake Movement----------------------
-        SRV_R.setPosition(.39);//115 degrees
+        SRV_R.setPosition(RampDownPos);//115 degrees
         sleep(1000);
         MTR_I.setPower(1);
+        isRampDown = true
+        isRampStore = false
+        isRampUp = false
     }
 
 
@@ -145,6 +159,17 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
         //---------------------Gamepad 1 Controls/Ramp Movement----------------------
         MTR_I.setPower(0);
         SRV_R.setPosition(0.37); //110 degrees
+        isRampDown = false
+        isRampStore = true
+        isRampUp = false
+    }
+
+    public void up(){
+        //---------------------Gamepad 1 Controls/Ramp Movement----------------------
+        SRV_R.setPosition(RampUpPos); //110 degrees
+        isRampDown = false
+        isRampStore = false
+        isRampUp = true
     }
 }
 
