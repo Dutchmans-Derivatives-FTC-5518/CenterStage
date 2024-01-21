@@ -31,7 +31,15 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
 // New hubs are horizontal and 180 degrees off from each other. VERIFY THIS CODE and update comments.
 // Remove this comment when checked.
 //**********************************************************************************
-  
+/*
+    TODO:
+        1. Check IMU parameters
+        2. Static variables for ramp position
+        3. Global variables to check ramp position
+        4. Implement arm height code
+        5. Fix sleep settings and fine tune during testing
+*/
+    
     //Since our Exp. Hub is rotated and placed vertically, we have to configure the orientation on bot
     IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
             RevHubOrientationOnRobot.LogoFacingDirection.UP,
