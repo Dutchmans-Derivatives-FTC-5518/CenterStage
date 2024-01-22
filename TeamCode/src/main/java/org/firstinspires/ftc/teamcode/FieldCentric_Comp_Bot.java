@@ -17,16 +17,16 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
     private int selection = 0;
     private double botHeading;
 
-    private static double RampDownPos = 0.39
-    private static double RampStorePos = 0.37
-    private static double RampUpPos = 0.0
+    private static double RampDownPos = 0.39;
+    private static double RampStorePos = 0.37;
+    private static double RampUpPos = 0.0;
 
-    private boolean isRampDown = false
-    private boolean isRampStore = false
-    private boolean isRampUp = true
+    private boolean isRampDown = false;
+    private boolean isRampStore = false;
+    private boolean isRampUp = true;
     
-    DcMotorEx MTR_LA = (DcMotorEx) hardwareMap.dcMotor.get("left_viper_mtr");   // These varbiales do not match wiki documentation. Update.
-    DcMotorEx MTR_RA = (DcMotorEx) hardwareMap.dcMotor.get("right_viper_mtr"); // See above.
+    DcMotorEx MTR_LA = (DcMotorEx) hardwareMap.dcMotor.get("left_viper_mtr");
+    DcMotorEx MTR_RA = (DcMotorEx) hardwareMap.dcMotor.get("right_viper_mtr");
     DcMotor MTR_LF = hardwareMap.dcMotor.get("left_front_mtr");
     DcMotor MTR_LB = hardwareMap.dcMotor.get("left_back_mtr");
     DcMotor MTR_RF = hardwareMap.dcMotor.get("right_front_mtr");
@@ -34,7 +34,6 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
     DcMotor MTR_I = hardwareMap.dcMotor.get("intake_mtr");
     IMU imu = hardwareMap.get(IMU.class, "imu");
     Servo SRV_R = hardwareMap.get(Servo.class, "ramp_srv");
-
 
 /*
     TODO:
@@ -45,7 +44,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
         5. Fix sleep settings and fine tune during testing (WIP)
 */
     
-    //Standard IMU Configuration
+    // Standard IMU Configuration
     IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
             RevHubOrientationOnRobot.LogoFacingDirection.UP,
             RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
@@ -56,7 +55,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
         waitForStart();
         if (isStopRequested()) return;
         while (opModeIsActive()){
-            //Initialize Robot
+            // Initialize Robot
             if (!initialized){
                 MTR_LF.setDirection(DcMotor.Direction.REVERSE);
                 MTR_LB.setDirection(DcMotor.Direction.REVERSE);
@@ -79,7 +78,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             }
 
             //---------------------Gamepad 2 Controls/Arm Movement----------------------
-            //Hotkeys (Automation)
+            // Hotkeys (Automation)
             if (gamepad2.y)
                 selection = 1;
             if (gamepad2.b)
@@ -90,7 +89,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
                 selection = 4;
 
             // Show the elapsed game time and wheel power.
-            //Useful telemetry data incase needed for testing and to find heading of robot
+            // Useful telemetry data in case needed for testing and to find heading of robot
             telemetry.addData("Left Front: ", MTR_LF.getPower());
             telemetry.addData("Left Back: ", MTR_LB.getPower());
             telemetry.addData("Right Front: ", MTR_RF.getPower());
@@ -99,21 +98,22 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             telemetry.update();
         }
     }
+
     public void drive(){
+
         //---------------------Gamepad 1 Controls/Drivetrain Movement----------------------
+        double y = -gamepad1.left_stick_y; // Reversed Value
+        double x = gamepad1.left_stick_x * 1.7 ; // The double value on the left is a sensitivity setting (change when needed)
+        double rx = gamepad1.right_stick_x; // Rotational Value
 
-        double y = -gamepad1.left_stick_y; //Reversed Value
-        double x = gamepad1.left_stick_x * 1.7 ; //The double value on the left is a sensitivity setting (change when needed)
-        double rx = gamepad1.right_stick_x; //Rotational Value
-
-        //Find the first angle (Yaw) to get the robot heading
+        // Find the first angle (Yaw) to get the robot heading
         botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
-        //Translate to robot heading from field heading for motor values
+        // Translate to robot heading from field heading for motor values
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
 
-        //Denominator is the largest motor power
+        // Denominator is the largest motor power
         double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
         double frontLeftPower = (rotY + rotX + rx) / denominator;
         double backLeftPower = (rotY - rotX + rx) / denominator;
@@ -126,50 +126,52 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
         MTR_RB.setPower(backRightPower);
     }
 
-    public void armMovement(int selection){
+    public void armMovement(int selection) {
+
         //---------------------Gamepad 3 Controls/Arm Movement----------------------
-        //Need code from aarush's laptop for this?
+        // TODO: Need code from Aarush's laptop for this?
         System.out.println("filler");
     }
 
     public void initialize(){
+
         //---------------------Start of Match----------------------
         SRV_R.setPosition(RampStorePos); //110 degrees
         MTR_I.setPower(-0.5);
-        sleep(1500);    // This might need to be a little longer...
+        sleep(1500);    // TODO: Check the timing of this once robot is running. Maybe turn this into a global.
         MTR_I.setPower(0);
-        isRampDown = false
-        isRampStore = true
-        isRampUp = false
+        isRampDown = false;
+        isRampStore = true;
+        isRampUp = false;
     }
-
 
     public void pickup(){
+
         //---------------------Gamepad 1 Controls/Intake Movement----------------------
-        SRV_R.setPosition(RampDownPos);//115 degrees
+        SRV_R.setPosition(RampDownPos); //115 degrees
         sleep(1000);
         MTR_I.setPower(1);
-        isRampDown = true
-        isRampStore = false
-        isRampUp = false
+        isRampDown = true;
+        isRampStore = false;
+        isRampUp = false;
     }
 
-
     public void storage(){
+
         //---------------------Gamepad 1 Controls/Ramp Movement----------------------
         MTR_I.setPower(0);
-        SRV_R.setPosition(0.37); //110 degrees
-        isRampDown = false
-        isRampStore = true
-        isRampUp = false
+        SRV_R.setPosition(0.37); //110 degrees  // TODO: This should be a global.
+        isRampDown = false;
+        isRampStore = true;
+        isRampUp = false;
     }
 
     public void up(){
+
         //---------------------Gamepad 1 Controls/Ramp Movement----------------------
         SRV_R.setPosition(RampUpPos); //110 degrees
-        isRampDown = false
-        isRampStore = false
-        isRampUp = true
+        isRampDown = false;
+        isRampStore = false;
+        isRampUp = true;
     }
 }
-
