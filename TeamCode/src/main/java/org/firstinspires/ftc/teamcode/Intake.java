@@ -5,7 +5,6 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.har
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-
 public class Intake{
     private boolean deployed; // attribute of if the intake mechanism has been dropped down at the start of the match
     private double deployPower; //attribute for how much power needed to deploy
@@ -16,20 +15,18 @@ public class Intake{
     //TODO: Figure out a way to find out if a pixel has been intaken by the robot
     private boolean intakeDown; //attribute if the intake is down
 
-
     // create necessary variables to set motor for intake
     DcMotor MTR_I;
 
-
     // instantiation of the class
     public Intake(HardwareMap hardwareMap) {
-        //TODO: Check if these values such as power and time are correct for the intake
-        deployed = false; //set deployed to true
+        // TODO: Check if these values such as power and time are correct for the intake
+        deployed = false; // set deployed to true
         deployPower = -0.5;
         deployTime = 250;  // Quarter second
-        intakePower = 0.3;
-        outtakePower = -0.3;
-        pixelLoaded = false; //set pixel loaded to false
+        intakePower = 0.5;
+        outtakePower = -0.5;
+        pixelLoaded = false; // set pixel loaded to false
         intakeDown = false; // sets the intake down to false
         MTR_I = hardwareMap.dcMotor.get("intake_mtr"); //create intake motor object
     }
@@ -39,22 +36,21 @@ public class Intake{
         this.pixelLoaded = pixelLoaded;
     }
 
-    //method to move the ramp up
+    // method to drop the intake from the storage/start position.
     public void deployIntake() {
-        // Write code to move the deploy the intake
-        MTR_I.setPower(deployPower); //motor is sent power values
+        // Write code to deploy the intake
+        MTR_I.setPower(deployPower); // motor is sent power values
         try {
-            Thread.sleep(deployTime); //motor sleeps
+            Thread.sleep(deployTime); // motor sleeps
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        intakeDown = true; //intake is successfully down
+        intakeDown = true; // intake is successfully down
         // TODO: what is the difference between intakeDown and deployed?
-
-        //TODO: I think there needs to be some code to stop the intake. It just goes and goes.
+        // TODO: I think there needs to be some code to stop the intake. It just goes and goes.
     }
 
-    //TODO: Test intake and outtake and see if they work in the main method (when button held)
+    // TODO: Test intake and outtake and see if they work in the main method (when button held)
     public void intakePixel() {
         // Write code to intake the pixel
         MTR_I.setPower(intakePower); //motor is sent power values
@@ -63,8 +59,12 @@ public class Intake{
 
     public void outtakePixel(){
         // Write code to intake the pixel
-        MTR_I.setPower(outtakePower); //motor is sent power values
-        pixelLoaded = false; //pixel is not loaded
+        MTR_I.setPower(outtakePower); // motor is sent power values
+        pixelLoaded = false; // pixel is not loaded
+
+		// TODO: The intake and outake might get a little confusing here. remember, the only
+		// way to unload a pixel is to move the ramp to up position. Honestly, I don't think 
+		// the intake needs to track the pixel since it just passes it to the ramp.
     }
 
     // returns is intake is deployed
@@ -72,14 +72,13 @@ public class Intake{
         return deployed;
     }
 
-    //returns if pixel is loaded
+    // returns if pixel is loaded
     public boolean isPixelLoaded() {
         return pixelLoaded;
     }
 
-    //returns if intake is down
+    // returns if intake is down
     public boolean isIntakeDown() {
         return intakeDown;
     }
-
 }
