@@ -17,8 +17,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class FieldCentric_Comp_Bot extends LinearOpMode{
     private int selection = 0;
     private boolean initialized = false;
-    DcMotorEx MTR_LVS = null; // TODO: Need to move this to its own class...  MTR_LVS = (DcMotorEx) hardwareMap.dcMotor.get("left_viper_mtr");
-    DcMotorEx MTR_RVS = null; // TODO: Need to move this to its own class...  MTR_RVS = (DcMotorEx) hardwareMap.dcMotor.get("right_viper_mtr");
+    DcMotorEx MTR_LVS; // TODO: Need to move this to its own class...  MTR_LVS = (DcMotorEx) hardwareMap.dcMotor.get("left_viper_mtr");
+    DcMotorEx MTR_RVS; // TODO: Need to move this to its own class...  MTR_RVS = (DcMotorEx) hardwareMap.dcMotor.get("right_viper_mtr");
     Drivetrain myDriveTrain = null;
     Ramp myRamp;
     Intake myIntake;
