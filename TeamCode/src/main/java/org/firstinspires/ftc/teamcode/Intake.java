@@ -16,19 +16,20 @@ public abstract class Intake extends LinearOpMode{
 
 
     // create necessary variables to set motor for intake
-    DcMotor MTR_I = hardwareMap.dcMotor.get("intake_mtr");
+    DcMotor MTR_I;
 
 
     // instantiation of the class
     public Intake() {
         //TODO: Check if these values such as power and time are correct for the intake
         deployed = false; //set deployed to true
-        deployPower = -0.5;
+        deployPower = -0.3;
         deployTime = 500;
-        intakePower = 0.5;
-        outtakePower = -0.5;
+        intakePower = 0.3;
+        outtakePower = -0.3;
         pixelLoaded = false; //set pixel loaded to false
         intakeDown = false; // sets the intake down to false
+        MTR_I = hardwareMap.dcMotor.get("intake_mtr"); //create intake motor object
     }
 
     // method to set the attribute that denotes if a pixel was loaded or unloaded = true/false
