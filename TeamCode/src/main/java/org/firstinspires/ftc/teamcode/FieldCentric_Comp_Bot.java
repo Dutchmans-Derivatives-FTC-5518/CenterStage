@@ -9,13 +9,13 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.IMU;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 @TeleOp
 public class FieldCentric_Comp_Bot extends LinearOpMode{
     private int selection = 0;
-    private double botHeading;
+
 
     private static double RampDownPos = 0.39;
     private static double RampStorePos = 0.37;
@@ -32,7 +32,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
     DcMotor MTR_RF = hardwareMap.dcMotor.get("right_front_mtr");
     DcMotor MTR_RB = hardwareMap.dcMotor.get("right_back_mtr");
     DcMotor MTR_I = hardwareMap.dcMotor.get("intake_mtr");
-    IMU imu = hardwareMap.get(IMU.class, "imu");
+
     Servo SRV_R = hardwareMap.get(Servo.class, "ramp_srv");
 
 /*
@@ -45,9 +45,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
 */
     
     // Standard IMU Configuration
-    IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-            RevHubOrientationOnRobot.LogoFacingDirection.UP,
-            RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -59,13 +57,10 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             if (!initialized){
                 MTR_LF.setDirection(DcMotor.Direction.REVERSE);
                 MTR_LB.setDirection(DcMotor.Direction.REVERSE);
-                imu.initialize(parameters);
                 SRV_R.setDirection(Servo.Direction.REVERSE);
                 initialize();
                 initialized = true;
             }
-
-            drive();
 
             if(gamepad1.dpad_up){
                 pickup();
@@ -90,41 +85,12 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
 
             // Show the elapsed game time and wheel power.
             // Useful telemetry data in case needed for testing and to find heading of robot
-            telemetry.addData("Left Front: ", MTR_LF.getPower());
-            telemetry.addData("Left Back: ", MTR_LB.getPower());
-            telemetry.addData("Right Front: ", MTR_RF.getPower());
-            telemetry.addData("Right Back: ", MTR_RB.getPower());
-            telemetry.addData("Heading: ", ((int)Math.toDegrees(botHeading)) + " degrees");
+
             telemetry.update();
         }
     }
 
-    public void drive(){
 
-        //---------------------Gamepad 1 Controls/Drivetrain Movement----------------------
-        double y = -gamepad1.left_stick_y; // Reversed Value
-        double x = gamepad1.left_stick_x * 1.7 ; // The double value on the left is a sensitivity setting (change when needed)
-        double rx = gamepad1.right_stick_x; // Rotational Value
-
-        // Find the first angle (Yaw) to get the robot heading
-        botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-
-        // Translate to robot heading from field heading for motor values
-        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
-        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
-
-        // Denominator is the largest motor power
-        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-        double frontLeftPower = (rotY + rotX + rx) / denominator;
-        double backLeftPower = (rotY - rotX + rx) / denominator;
-        double frontRightPower = (rotY - rotX - rx) / denominator;
-        double backRightPower = (rotY + rotX - rx) / denominator;
-
-        MTR_LF.setPower(frontLeftPower);
-        MTR_LB.setPower(backLeftPower);
-        MTR_RF.setPower(frontRightPower);
-        MTR_RB.setPower(backRightPower);
-    }
 
     public void armMovement(int selection) {
 
