@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
-//import the necessary packages for instantiating Servo
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+//import the necessary packages for instantiating Servo/Hardware Map
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public abstract class Ramp extends LinearOpMode{
+public class Ramp{
     private double rampCurPosition; // attribute of ramp denoting its current position
     private boolean pixelLoaded; // attribute denoting if the ramp has a pixel
 
@@ -20,7 +20,6 @@ public abstract class Ramp extends LinearOpMode{
 
     // create necessary variables to control Ramp
     Servo SRV_R;
-
 
     // instantiation of the class
     public Ramp() {
@@ -45,7 +44,7 @@ public abstract class Ramp extends LinearOpMode{
     public void moveRampDown() {
         // Write code to move the Ramp down ...
         // you can add check if pixel loaded to not move down
-        if(!pixelLoaded){
+        if(!isPixelLoaded()){
             SRV_R.setPosition(angDown);
             rampCurPosition = DOWN;
         }
@@ -62,7 +61,10 @@ public abstract class Ramp extends LinearOpMode{
             rampCurPosition = STORE;
         }
     }
-
+    // returns if pixel is loaded
+    public boolean isPixelLoaded() {
+        return pixelLoaded;
+    }
     // returns is ramp is up
     public boolean isRampUp() {
         return rampCurPosition == UP;
@@ -78,7 +80,7 @@ public abstract class Ramp extends LinearOpMode{
         return rampCurPosition == STORE;
     }
 
-    //returns true if ramp is stopred with pixel
+    //returns true if ramp is stored with pixel
     public boolean isRampStoredWithPixel() {
         return rampCurPosition == STORE_WITH_PIXEL;
     }

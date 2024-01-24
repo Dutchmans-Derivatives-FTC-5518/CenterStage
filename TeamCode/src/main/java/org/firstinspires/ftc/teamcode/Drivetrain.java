@@ -1,13 +1,17 @@
 package org.firstinspires.ftc.teamcode;
 
 //import the necessary packages for instantiating Motor
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-public abstract class Drivetrain extends LinearOpMode{
+public class Drivetrain{
     private double y; //value of y on joystick
     private double x; //value of x on joystick
     private double rx; //rotation value
@@ -100,5 +104,6 @@ public abstract class Drivetrain extends LinearOpMode{
         telemetry.addData("Right Front: ", getRightFrontPower());
         telemetry.addData("Right Back: ", getRightBackPower());
         telemetry.addData("Heading: ", ((int) Math.toDegrees(getBotHeading())) + " degrees");
+        telemetry.update();
     }
 }

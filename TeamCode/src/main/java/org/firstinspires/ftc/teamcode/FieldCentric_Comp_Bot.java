@@ -15,63 +15,45 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp
 public class FieldCentric_Comp_Bot extends LinearOpMode{
     private int selection = 0;
-
-
-    private static double RampDownPos = 0.39;
-    private static double RampStorePos = 0.37;
-    private static double RampUpPos = 0.0;
-
-    private boolean isRampDown = false;
-    private boolean isRampStore = false;
-    private boolean isRampUp = true;
-    
-    DcMotorEx MTR_LA = (DcMotorEx) hardwareMap.dcMotor.get("left_viper_mtr");
-    DcMotorEx MTR_RA = (DcMotorEx) hardwareMap.dcMotor.get("right_viper_mtr");
-    DcMotor MTR_LF = hardwareMap.dcMotor.get("left_front_mtr");
-    DcMotor MTR_LB = hardwareMap.dcMotor.get("left_back_mtr");
-    DcMotor MTR_RF = hardwareMap.dcMotor.get("right_front_mtr");
-    DcMotor MTR_RB = hardwareMap.dcMotor.get("right_back_mtr");
-    DcMotor MTR_I = hardwareMap.dcMotor.get("intake_mtr");
-
-    Servo SRV_R = hardwareMap.get(Servo.class, "ramp_srv");
+    private boolean initialized = false;
+    DcMotorEx MTR_VSL = (DcMotorEx) hardwareMap.dcMotor.get("left_viper_mtr");
+    DcMotorEx MTR_VSR = (DcMotorEx) hardwareMap.dcMotor.get("right_viper_mtr");
+    Drivetrain myDriveTrain;
+    Ramp myRamp;
+    Intake myIntake;
 
 /*
     TODO:
-        1. Check IMU parameters (Done)
-        2. Static variables for ramp position (Done)
-        3. Global variables to check ramp position (Done)
-        4. Implement arm height code (WIP)
-        5. Fix sleep settings and fine tune during testing (WIP)
+        1. Implement arm height code (WIP)
 */
-    
-    // Standard IMU Configuration
 
-
-    @Override
+    //@Override
+    public FieldCentric_Comp_Bot(){
+        myDriveTrain = new Drivetrain();
+        myRamp = new Ramp();
+        myIntake = new Intake();
+    }
     public void runOpMode() throws InterruptedException {
-        boolean initialized = false;
         waitForStart();
         if (isStopRequested()) return;
         while (opModeIsActive()){
-            // Initialize Robot
             if (!initialized){
-                MTR_LF.setDirection(DcMotor.Direction.REVERSE);
-                MTR_LB.setDirection(DcMotor.Direction.REVERSE);
-                SRV_R.setDirection(Servo.Direction.REVERSE);
-                initialize();
-                initialized = true;
+            FieldCentric_Comp_Bot myRobot = new FieldCentric_Comp_Bot();
+            myIntake.deployIntake();
+            initialized = true;
             }
+            myDriveTrain.drive();
+            if (gamepad1.left_trigger != 0){
+                myRamp.moveRampDown();
+                myIntake.intakePixel();
+            }
+            if (gamepad1.right_trigger != 0){
+                myRamp.moveRampUp();
+                myIntake.outtakePixel();
+            }
+            myDriveTrain.getTelemetryData();
 
-            if(gamepad1.dpad_up){
-                pickup();
-            }
-            if(gamepad1.dpad_down){
-                storage();
-            }
-            if(gamepad1.dpad_left){
-                up();
-            }
-
+/*
             //---------------------Gamepad 2 Controls/Arm Movement----------------------
             // Hotkeys (Automation)
             if (gamepad2.y)
@@ -87,11 +69,12 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             // Useful telemetry data in case needed for testing and to find heading of robot
 
             telemetry.update();
+ */
         }
     }
 
 
-
+/*
     public void armMovement(int selection) {
 
         //---------------------Gamepad 3 Controls/Arm Movement----------------------
@@ -140,4 +123,5 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
         isRampStore = false;
         isRampUp = true;
     }
+ */
 }
