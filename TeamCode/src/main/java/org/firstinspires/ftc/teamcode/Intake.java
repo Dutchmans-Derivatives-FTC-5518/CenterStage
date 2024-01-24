@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
-//import the necessary packages for instantiating Motor
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+//import the necessary packages for instantiating Motor/Hardware Map
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public abstract class Intake extends LinearOpMode{
+
+public class Intake{
     private boolean deployed; // attribute of if the intake mechanism has been dropped down at the start of the match
     private double deployPower; //attribute for how much power needed to deploy
     private long deployTime; //attribute for how much time needed to deploy
@@ -41,7 +42,11 @@ public abstract class Intake extends LinearOpMode{
     public void deployIntake() {
         // Write code to move the deploy the intake
         MTR_I.setPower(deployPower); //motor is sent power values
-        sleep(deployTime); //motor sleeps for 1/2 a second
+        try {
+            Thread.sleep(deployTime); //motor sleeps for 1/2 a second
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         intakeDown = true; //intake is successfully down
     }
 
