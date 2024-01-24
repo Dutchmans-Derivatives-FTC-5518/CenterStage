@@ -28,18 +28,18 @@ public class Drivetrain{
     private double rightBackPower;
 
     // Create necessary variables to control each 4 wheels and IMU
-    DcMotor MTR_LF = null;
-    DcMotor MTR_LB = null;
-    DcMotor MTR_RF = null;
-    DcMotor MTR_RB = null;
+    DcMotor MTR_LF;   // TODO: We use DcMotor here and DcMotorEx for the Viper Slides. Is there a reason for that?
+    DcMotor MTR_LB;
+    DcMotor MTR_RF;
+    DcMotor MTR_RB;
     IMU imu;
-    Gamepad gamepad1 = null;
-    Telemetry telemetry = null;
+    Gamepad gamepad1;
+    Telemetry telemetry;
 
     // instantiation of the class
     public Drivetrain(HardwareMap hardwareMap, Gamepad iGamepad1, Telemetry iTelemetry) {
 
-        // Take the passed in value of gamepad1 and assign to class instance of gamepad1
+        // Take the passed in value of gamepad1 and telemetry and assign to class variables.
         gamepad1 = iGamepad1;
         telemetry = iTelemetry;
 
