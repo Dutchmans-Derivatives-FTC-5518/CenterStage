@@ -7,8 +7,9 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
+//import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
@@ -16,9 +17,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class FieldCentric_Comp_Bot extends LinearOpMode{
     private int selection = 0;
     private boolean initialized = false;
-    DcMotorEx MTR_VSL = (DcMotorEx) hardwareMap.dcMotor.get("left_viper_mtr");
-    DcMotorEx MTR_VSR = (DcMotorEx) hardwareMap.dcMotor.get("right_viper_mtr");
-    Drivetrain myDriveTrain;
+    DcMotorEx MTR_LVS = null; // TODO: Need to move this to its own class...  MTR_LVS = (DcMotorEx) hardwareMap.dcMotor.get("left_viper_mtr");
+    DcMotorEx MTR_RVS = null; // TODO: Need to move this to its own class...  MTR_RVS = (DcMotorEx) hardwareMap.dcMotor.get("right_viper_mtr");
+    Drivetrain myDriveTrain = null;
     Ramp myRamp;
     Intake myIntake;
 
@@ -29,11 +30,13 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
 
     //@Override
     public FieldCentric_Comp_Bot(){
-        myDriveTrain = new Drivetrain();
-        myRamp = new Ramp();
-        myIntake = new Intake();
     }
+
     public void runOpMode() throws InterruptedException {
+        myDriveTrain = new Drivetrain(this.hardwareMap, this.gamepad1, this.telemetry);
+        myRamp = new Ramp(this.hardwareMap);
+        myIntake = new Intake(this.hardwareMap);
+
         waitForStart();
         if (isStopRequested()) return;
         while (opModeIsActive()){

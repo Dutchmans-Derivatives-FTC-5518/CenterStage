@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 //import the necessary packages for instantiating Motor/Hardware Map
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
 public class Intake{
@@ -21,11 +22,11 @@ public class Intake{
 
 
     // instantiation of the class
-    public Intake() {
+    public Intake(HardwareMap hardwareMap) {
         //TODO: Check if these values such as power and time are correct for the intake
         deployed = false; //set deployed to true
-        deployPower = -0.3;
-        deployTime = 500;
+        deployPower = -0.5;
+        deployTime = 250;  // Quarter second
         intakePower = 0.3;
         outtakePower = -0.3;
         pixelLoaded = false; //set pixel loaded to false
@@ -43,11 +44,14 @@ public class Intake{
         // Write code to move the deploy the intake
         MTR_I.setPower(deployPower); //motor is sent power values
         try {
-            Thread.sleep(deployTime); //motor sleeps for 1/2 a second
+            Thread.sleep(deployTime); //motor sleeps
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         intakeDown = true; //intake is successfully down
+        // TODO: what is the difference between intakeDown and deployed?
+
+        //TODO: I think there needs to be some code to stop the intake. It just goes and goes.
     }
 
     //TODO: Test intake and outtake and see if they work in the main method (when button held)

@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 //import the necessary packages for instantiating Servo/Hardware Map
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Ramp{
@@ -22,7 +24,7 @@ public class Ramp{
     Servo SRV_R;
 
     // instantiation of the class
-    public Ramp() {
+    public Ramp(HardwareMap hardwareMap) {
         rampCurPosition = STORE; //set position to store
         pixelLoaded = false; //set pixel loaded to false
         SRV_R = hardwareMap.get(Servo.class, "ramp_srv"); //Create servo object

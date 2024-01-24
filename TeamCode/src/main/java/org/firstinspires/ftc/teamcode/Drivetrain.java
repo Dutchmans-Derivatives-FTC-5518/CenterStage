@@ -4,12 +4,15 @@ package org.firstinspires.ftc.teamcode;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.IMU;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Drivetrain{
     private double y; //value of y on joystick
@@ -24,15 +27,22 @@ public class Drivetrain{
     private double rightFrontPower;
     private double rightBackPower;
 
-    // create necessary variables to control each 4 wheels and IMU
-    DcMotor MTR_LF;
-    DcMotor MTR_LB;
-    DcMotor MTR_RF;
-    DcMotor MTR_RB;
+    // Create necessary variables to control each 4 wheels and IMU
+    DcMotor MTR_LF = null;
+    DcMotor MTR_LB = null;
+    DcMotor MTR_RF = null;
+    DcMotor MTR_RB = null;
     IMU imu;
+    Gamepad gamepad1 = null;
+    Telemetry telemetry = null;
 
     // instantiation of the class
-    public Drivetrain() {
+    public Drivetrain(HardwareMap hardwareMap, Gamepad iGamepad1, Telemetry iTelemetry) {
+
+        // Take the passed in value of gamepad1 and assign to class instance of gamepad1
+        gamepad1 = iGamepad1;
+        telemetry = iTelemetry;
+
         MTR_LF = hardwareMap.dcMotor.get("left_front_mtr"); //instantiate 4 motors
         MTR_LB = hardwareMap.dcMotor.get("left_back_mtr");
         MTR_RF = hardwareMap.dcMotor.get("right_front_mtr");
@@ -54,8 +64,9 @@ public class Drivetrain{
     public void drive(){
         //TODO: Test these sensitivity values
         //---------------------Gamepad 1 Controls/Drivetrain Movement----------------------//
-        y = -gamepad1.left_stick_y; // Reversed Value
+        y = -(gamepad1.left_stick_y); // Reversed Value
         x = gamepad1.left_stick_x * 1.7 ; // The double value on the left is a sensitivity setting (change when needed)
+                                          // TODO: The constant in line above should be a global.
         rx = gamepad1.right_stick_x; // Rotational Value
 
         // Find the first angle (Yaw) to get the robot heading
