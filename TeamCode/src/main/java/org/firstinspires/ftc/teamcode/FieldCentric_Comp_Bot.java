@@ -37,6 +37,9 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
                 myRamp.moveRampDown();
                 myIntake.intakePixel();
             }
+            if (gamepad1.left_trigger == 0 || gamepad1.right_trigger == 0){
+                myIntake.stopIntake();
+            }
             if (gamepad1.right_trigger != 0){
                 myRamp.moveRampUp();
                 myIntake.outtakePixel();

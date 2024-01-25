@@ -63,6 +63,10 @@ public class Intake{
 		// way to unload a pixel is to move the ramp to up position. Honestly, I don't think 
 		// the intake needs to track the pixel since it just passes it to the ramp.
     }
+    public void stopIntake() {
+        // Write code to intake the pixel
+        MTR_I.setPower(0); //motor is sent power values
+    }
 
     // returns is intake is deployed
     public boolean isDeployed() {
