@@ -26,9 +26,10 @@ public class Drivetrain{
     private double leftBackPower;
     private double rightFrontPower;
     private double rightBackPower;
+    private static double sensitivity = 1.7;
 
     // Create necessary variables to control each 4 wheels and IMU
-    DcMotor MTR_LF;   // TODO: We use DcMotor here and DcMotorEx for the Viper Slides. Is there a reason for that?
+    DcMotor MTR_LF;
     DcMotor MTR_LB;
     DcMotor MTR_RF;
     DcMotor MTR_RB;
@@ -62,11 +63,9 @@ public class Drivetrain{
     }
 
     public void drive(){
-        //TODO: Test these sensitivity values
         //---------------------Gamepad 1 Controls/Drivetrain Movement----------------------//
         y = -(gamepad1.left_stick_y); // Reversed Value
-        x = gamepad1.left_stick_x * 1.7 ; // The double value on the left is a sensitivity setting (change when needed)
-                                          // TODO: The constant in line above should be a global.
+        x = gamepad1.left_stick_x * sensitivity ; // The double value on the left is a sensitivity setting (change when needed)
         rx = gamepad1.right_stick_x; // Rotational Value
 
         // Find the first angle (Yaw) to get the robot heading

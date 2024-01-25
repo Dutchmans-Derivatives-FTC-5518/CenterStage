@@ -15,18 +15,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 @TeleOp
 public class FieldCentric_Comp_Bot extends LinearOpMode{
-    private int selection = 0;
-    private boolean initialized = false;
-    DcMotorEx MTR_LVS; // TODO: Need to move this to its own class...  MTR_LVS = (DcMotorEx) hardwareMap.dcMotor.get("left_viper_mtr");
-    DcMotorEx MTR_RVS; // TODO: Need to move this to its own class...  MTR_RVS = (DcMotorEx) hardwareMap.dcMotor.get("right_viper_mtr");
     Drivetrain myDriveTrain = null;
     Ramp myRamp;
     Intake myIntake;
-
-/*
-    TODO:
-        1. Implement arm height code (WIP)
-*/
+    Gripper myGripper;
 
     //@Override
     public FieldCentric_Comp_Bot(){
@@ -36,15 +28,12 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
         myDriveTrain = new Drivetrain(this.hardwareMap, this.gamepad1, this.telemetry);
         myRamp = new Ramp(this.hardwareMap);
         myIntake = new Intake(this.hardwareMap);
+        myGripper = new Gripper(this.hardwareMap);
 
         waitForStart();
         if (isStopRequested()) return;
         while (opModeIsActive()){
-            if (!initialized){
-            FieldCentric_Comp_Bot myRobot = new FieldCentric_Comp_Bot();
-            myIntake.deployIntake();
-            initialized = true;
-            }
+
             myDriveTrain.drive();
             if (gamepad1.left_trigger != 0){
                 myRamp.moveRampDown();
@@ -56,32 +45,27 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             }
             myDriveTrain.getTelemetryData();
 
-/*
             //---------------------Gamepad 2 Controls/Arm Movement----------------------
-            // Hotkeys (Automation)
-            if (gamepad2.y)
-                selection = 1;
-            if (gamepad2.b)
-                selection = 2;
-            if (gamepad2.x)
-                selection = 3;
-            if (gamepad2.a)
-                selection = 4;
-
+            // Hotkeys (Automation to raise slide up)
+            if (gamepad2.y) {
+                myGripper.moveSlideDown();
+                myGripper.openGripper();
+            }
+            if (gamepad2.b){myGripper.moveSlideLow();}
+            if (gamepad2.x){myGripper.moveSlideMiddle();}
+            if (gamepad2.a) {myGripper.moveSlideHigh();}
+            // Hotkeys (to change gripper position)
+            if (gamepad2.left_trigger != 0) {myGripper.openGripper();}
+            if (gamepad2.right_trigger != 0) {myGripper.closeGripper();}
             // Show the elapsed game time and wheel power.
             // Useful telemetry data in case needed for testing and to find heading of robot
-
             telemetry.update();
- */
         }
     }
-
-
 /*
     public void armMovement(int selection) {
 
         //---------------------Gamepad 3 Controls/Arm Movement----------------------
-        // TODO: Need code from Aarush's laptop for this?
         System.out.println("filler");
     }
 
