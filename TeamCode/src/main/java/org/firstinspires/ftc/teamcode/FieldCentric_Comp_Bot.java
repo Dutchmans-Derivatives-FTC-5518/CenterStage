@@ -42,8 +42,8 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             }
             if (gamepad1.right_trigger != 0){
                 myRamp.moveRampUp();
-                myIntake.outtakePixel();
             }
+            if (gamepad1.a){ myIntake.outtakePixel(); }
             myDriveTrain.getTelemetryData();
 
             //---------------------Gamepad 2 Controls/Arm Movement----------------------
