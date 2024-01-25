@@ -21,8 +21,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
     Gripper myGripper;
 
     //@Override
-    public FieldCentric_Comp_Bot(){
-    }
+
 
     public void runOpMode() throws InterruptedException {
         myDriveTrain = new Drivetrain(this.hardwareMap, this.gamepad1, this.telemetry);
@@ -33,7 +32,6 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
         waitForStart();
         if (isStopRequested()) return;
         while (opModeIsActive()){
-
             myDriveTrain.drive();
             if (gamepad1.left_trigger != 0){
                 myRamp.moveRampDown();
