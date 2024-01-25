@@ -2,9 +2,13 @@ package org.firstinspires.ftc.teamcode;
 
 //import the necessary packages for instantiating Servo/Hardware Map
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Ramp{
     private double rampCurPosition; // attribute of ramp denoting its current position
@@ -20,8 +24,9 @@ public class Ramp{
 //TODO: need to define what store with pixel is/ how we can change it
     // add static variables to denote up, down and store positions to pass on the SRV_R.setPosition(RampDownPos)
 
-    // create necessary variables to control Ramp
+    // create necessary variables to control Ramp/telemetry
     Servo SRV_R;
+    Telemetry telemetry;
 
     // instantiation of the class
     public Ramp(HardwareMap hardwareMap) {
@@ -85,5 +90,8 @@ public class Ramp{
     //returns true if ramp is stored with pixel
     public boolean isRampStoredWithPixel() {
         return rampCurPosition == STORE_WITH_PIXEL;
+    }
+    public void getTelemetryData() {
+        telemetry.addData("Left Front: ", SRV_R.getPosition());
     }
 }

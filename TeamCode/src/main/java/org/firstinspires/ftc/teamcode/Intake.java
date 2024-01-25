@@ -24,8 +24,8 @@ public class Intake{
         deployed = false; // set deployed to true
         deployPower = -0.5;
         deployTime = 250;  // Quarter second
-        intakePower = -0.5;
-        outtakePower = 0.5;
+        intakePower = -1;
+        outtakePower = 1;
         pixelLoaded = false; // set pixel loaded to false
         MTR_I = hardwareMap.dcMotor.get("intake_mtr"); //create intake motor object
         deployIntake();

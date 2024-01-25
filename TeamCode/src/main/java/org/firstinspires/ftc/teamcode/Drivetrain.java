@@ -114,6 +114,5 @@ public class Drivetrain{
         telemetry.addData("Right Front: ", getRightFrontPower());
         telemetry.addData("Right Back: ", getRightBackPower());
         telemetry.addData("Heading: ", ((int) Math.toDegrees(getBotHeading())) + " degrees");
-        telemetry.update();
     }
 }

@@ -45,6 +45,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             }
             if (gamepad1.a){ myIntake.outtakePixel(); }
             myDriveTrain.getTelemetryData();
+            if(gamepad1.x) { myRamp.getTelemetryData();} //TODO: Check ramp angles, use this for testing Mr.Fisher
 
             //---------------------Gamepad 2 Controls/Arm Movement----------------------
             // Hotkeys (Automation to raise slide up)
