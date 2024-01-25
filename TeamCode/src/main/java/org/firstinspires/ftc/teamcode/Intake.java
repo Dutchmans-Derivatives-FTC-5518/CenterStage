@@ -13,7 +13,6 @@ public class Intake{
     private double outtakePower; //power for how much the intake needs to spin pieces out
     private boolean pixelLoaded; // attribute denoting if there is a pixel thru the intake
     //TODO: Figure out a way to find out if a pixel has been intaken by the robot
-    private boolean intakeDown; //attribute if the intake is down
 
     // create necessary variables to set motor for intake
     DcMotor MTR_I;
@@ -27,8 +26,8 @@ public class Intake{
         intakePower = 0.5;
         outtakePower = -0.5;
         pixelLoaded = false; // set pixel loaded to false
-        intakeDown = false; // sets the intake down to false
         MTR_I = hardwareMap.dcMotor.get("intake_mtr"); //create intake motor object
+        deployIntake();
     }
 
     // method to set the attribute that denotes if a pixel was loaded or unloaded = true/false
@@ -45,9 +44,7 @@ public class Intake{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        intakeDown = true; // intake is successfully down
-        // TODO: what is the difference between intakeDown and deployed?
-        // TODO: I think there needs to be some code to stop the intake. It just goes and goes.
+        MTR_I.setPower(0);
     }
 
     // TODO: Test intake and outtake and see if they work in the main method (when button held)
@@ -75,10 +72,5 @@ public class Intake{
     // returns if pixel is loaded
     public boolean isPixelLoaded() {
         return pixelLoaded;
-    }
-
-    // returns if intake is down
-    public boolean isIntakeDown() {
-        return intakeDown;
     }
 }
