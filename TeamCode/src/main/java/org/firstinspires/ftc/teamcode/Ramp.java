@@ -14,8 +14,8 @@ public class Ramp{
     public static final double STORE = 0; // static variable denoting ramp stored
     public static final double DOWN = -1;
     public final double angUp= 0;  // static variable denoting ramp up
-    public final double angStore = 0.37; // static variable denoting ramp stored
-    public final double angDown = 0.39; // static variable denoting ramp down
+    public final double angStore = -0.37; // static variable denoting ramp stored
+    public final double angDown = -0.39; // static variable denoting ramp down
     public static final int STORE_WITH_PIXEL = 9; // static variable denoting ramp stored with pixel
 //TODO: need to define what store with pixel is/ how we can change it
     // add static variables to denote up, down and store positions to pass on the SRV_R.setPosition(RampDownPos)
