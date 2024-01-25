@@ -18,10 +18,10 @@ public class Ramp{
     public static final double STORE = 0; // static variable denoting ramp stored
     public static final double DOWN = -1;
     public final double angUp= 0;  // static variable denoting ramp up
-    public final double angStore = -0.37; // static variable denoting ramp stored
-    public final double angDown = -0.39; // static variable denoting ramp down
+    public final double angStore = 0.37; // static variable denoting ramp stored
+    public final double angDown = 0.39; // static variable denoting ramp down
     public static final int STORE_WITH_PIXEL = 9; // static variable denoting ramp stored with pixel
-//TODO: need to define what store with pixel is/ how we can change it
+    // TODO: need to define what store with pixel is/ how we can change it
     // add static variables to denote up, down and store positions to pass on the SRV_R.setPosition(RampDownPos)
 
     // create necessary variables to control Ramp/telemetry
@@ -33,7 +33,7 @@ public class Ramp{
         rampCurPosition = STORE; //set position to store
         pixelLoaded = false; //set pixel loaded to false
         SRV_R = hardwareMap.get(Servo.class, "ramp_srv"); //Create servo object
-        SRV_R.setDirection(Servo.Direction.REVERSE);
+//        SRV_R.setDirection(Servo.Direction.REVERSE);
     }
 
     // method to set the attribute that denotes if a pixel was loaded or unloaded = true/false
@@ -94,4 +94,9 @@ public class Ramp{
     public void getTelemetryData() {
         telemetry.addData("Left Front: ", SRV_R.getPosition());
     }
+    public void debugRamp(double angle) {
+        SRV_R.setPosition(angle);
+    }
+
 }
+

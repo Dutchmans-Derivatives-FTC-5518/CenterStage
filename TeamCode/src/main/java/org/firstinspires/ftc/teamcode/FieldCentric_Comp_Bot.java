@@ -55,13 +55,23 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             }
             if (gamepad2.b){myGripper.moveSlideLow();}
             if (gamepad2.x){myGripper.moveSlideMiddle();}
-            if (gamepad2.a) {myGripper.moveSlideHigh();}
+            if (gamepad2.a){myGripper.moveSlideHigh();}
             // Hotkeys (to change gripper position)
             if (gamepad2.left_trigger != 0) {myGripper.openGripper();}
             if (gamepad2.right_trigger != 0) {myGripper.closeGripper();}
             // Show the elapsed game time and wheel power.
             // Useful telemetry data in case needed for testing and to find heading of robot
             telemetry.update();
+
+            //--------------------- DEBUG Code --------------------------------------------
+            if (gamepad1.b){
+                myRamp.debugRamp(0.48);
+                sleep(2500);
+                myRamp.debugRamp(0.15);
+                sleep(2500);
+                myRamp.debugRamp(0.1);
+
+            }
         }
     }
 /*
