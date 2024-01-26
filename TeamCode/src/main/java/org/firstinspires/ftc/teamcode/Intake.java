@@ -24,8 +24,8 @@ public class Intake{
         deployed = false; // set deployed to true
         deployPower = -0.5;
         deployTime = 250;  // Quarter second
-        intakePower = -1;
-        outtakePower = 1;
+        intakePower = 0.01;
+        outtakePower = 0.1;
         pixelLoaded = false; // set pixel loaded to false
         MTR_I = hardwareMap.dcMotor.get("intake_mtr"); //create intake motor object
         deployIntake();
@@ -51,13 +51,13 @@ public class Intake{
     // TODO: Test intake and outtake and see if they work in the main method (when button held)
     public void intakePixel() {
         // Write code to intake the pixel
-        MTR_I.setPower(intakePower); //motor is sent power values
+        MTR_I.setPower(1.0); //motor is sent power values
         pixelLoaded = true; //pixel is loaded
     }
 
     public void outtakePixel(){
         // Write code to intake the pixel
-        MTR_I.setPower(outtakePower); // motor is sent power values
+        MTR_I.setPower(-0.5); // motor is sent power values
         pixelLoaded = false; // pixel is not loaded
 
 		// TODO: The intake and outake might get a little confusing here. remember, the only
