@@ -34,8 +34,9 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
         while (opModeIsActive()){
             myDriveTrain.drive();
             if (gamepad1.left_trigger != 0){
-                myRamp.moveRampDown();
                 myIntake.intakePixel();
+                //sleep(1000);
+                //myRamp.moveRampDown();
             }
             if (gamepad1.left_trigger == 0 || gamepad1.right_trigger == 0){
                 myIntake.stopIntake();
@@ -65,11 +66,13 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
 
             //--------------------- DEBUG Code --------------------------------------------
             if (gamepad1.b){
-                myRamp.debugRamp(0.48);
+                myRamp.debugRamp(0.4);
                 sleep(2500);
-                myRamp.debugRamp(0.15);
+                myRamp.debugRamp(0.60);
                 sleep(2500);
-                myRamp.debugRamp(0.1);
+                myRamp.debugRamp(0.3);
+                sleep(2500);
+                myRamp.debugRamp(0.22);
 
             }
         }
