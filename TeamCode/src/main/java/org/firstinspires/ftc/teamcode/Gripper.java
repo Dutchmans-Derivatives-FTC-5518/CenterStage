@@ -1,17 +1,17 @@
 package org.firstinspires.ftc.teamcode;
 
 //import the necessary packages for instantiating Motor
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+
+//import com.qualcomm.robotcore.hardware.HardwareMap;
+//import org.firstinspires.ftc.robotcore.external.Telemetry;
 //import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 //import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 //import com.qualcomm.robotcore.hardware.DcMotorSimple;
 //import com.qualcomm.robotcore.hardware.Gamepad;
 //import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Gripper{
     private Servo SRV_LG, SRV_RG;
@@ -25,11 +25,27 @@ public class Gripper{
     private double dGripperOpen = 0.0;
     private double dGripperGuard = 0.12;
     private double dGripperClosed = 0.19;
-    Telemetry telemetry;
+    FieldCentric_Comp_Bot bot;
 
     // TODO: Check encoders
 
-    public Gripper(HardwareMap hardwareMap, Telemetry iTelemetry) {
+    public Gripper(FieldCentric_Comp_Bot iBot) {
+        bot = iBot;
+
+        // Set up motors
+        //TODO: May have to reverse the motor direction to spin other way
+        SRV_LG = bot.hardwareMap.get(Servo.class, "left_grip_srv");
+        SRV_RG = bot.hardwareMap.get(Servo.class, "right_grip_srv");
+        // Set servo of left gripper to run the opposite direction.
+        SRV_LG.setDirection(Servo.Direction.REVERSE);
+
+        MTR_LVS = bot.hardwareMap.get(DcMotor.class, "left_viper_mtr");
+        MTR_RVS = bot.hardwareMap.get(DcMotor.class, "right_viper_mtr");
+        // Set encoder to 0 ticks
+        MTR_LVS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        MTR_RVS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+    /*public Gripper(HardwareMap hardwareMap, Telemetry iTelemetry) {
         // Take the passed in value of telemetry and assign to class variables.
         telemetry = iTelemetry;
 
@@ -45,7 +61,7 @@ public class Gripper{
         // Set encoder to 0 ticks
         MTR_LVS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         MTR_RVS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    }
+    }*/
 
     public void openGripper() {
         SRV_LG.setPosition(dGripperOpen);
@@ -103,8 +119,8 @@ public class Gripper{
     }
     // Method returns gripper servo positions
     public void getTelemetryData() {
-        telemetry.addData("SRV_RG Position: ", SRV_RG.getPosition());
-        telemetry.addData("SRV_LG Position: ", SRV_LG.getPosition());
+        bot.telemetry.addData("SRV_RG Position: ", SRV_RG.getPosition());
+        bot.telemetry.addData("SRV_LG Position: ", SRV_LG.getPosition());
     }
     public void debugSlide() {
         MTR_LVS.setTargetPosition(-3600);

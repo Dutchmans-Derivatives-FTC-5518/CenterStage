@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
 // Import the necessary packages for instantiating Motor/Hardware Map
-//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
+
+//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 //import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+//import com.qualcomm.robotcore.hardware.HardwareMap;
+//import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Intake{
     // TODO: Check if these values such as power and time are correct for the intake
@@ -20,15 +21,15 @@ public class Intake{
     // Create necessary variables to set motor for intake
     DcMotor MTR_I;
 
-    Telemetry telemetry;
+    FieldCentric_Comp_Bot bot;
 
     // Instantiation of the class
-    public Intake(HardwareMap hardwareMap, Telemetry iTelemetry) {
+    public Intake(FieldCentric_Comp_Bot iBot) {
         // Take the passed in value of telemetry and assign to class variables.
-        telemetry = iTelemetry;
+        bot = iBot;
 
         // Get the motors/servos ready.
-        MTR_I = hardwareMap.dcMotor.get("intake_mtr"); //create intake motor object
+        MTR_I = bot.hardwareMap.dcMotor.get("intake_mtr"); //create intake motor object
     }
 
     // Method to set the attribute that denotes if a pixel was loaded or unloaded = true/false

@@ -1,14 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
 //import the necessary packages for instantiating Servo/Hardware Map
-//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-//import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+
+//import org.firstinspires.ftc.robotcore.external.Telemetry;
+//import com.qualcomm.robotcore.hardware.HardwareMap;
 //import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
 //import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 //import org.firstinspires.ftc.robotcore.external.Telemetry;
+//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+//import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 public class Ramp{
     private double rampCurPosition; // attribute of ramp denoting its current position
@@ -28,16 +29,16 @@ public class Ramp{
     // Create necessary variables to control Ramp/telemetry
     Servo SRV_R;
     // Variable to hold passed in telemetry variable.
-    Telemetry telemetry;
+    FieldCentric_Comp_Bot bot;
 
     // Instantiation of the class
-    public Ramp(HardwareMap hardwareMap, Telemetry iTelemetry) {
+    public Ramp(FieldCentric_Comp_Bot iBot) {
         // Take the passed in value of telemetry and assign to class variables.
-        telemetry = iTelemetry;
+        bot = iBot;
 
         rampCurPosition = STORE; // Set position to store
         pixelLoaded = false; // Set pixel loaded to false
-        SRV_R = hardwareMap.get(Servo.class, "ramp_srv"); //Create servo object
+        SRV_R = bot.hardwareMap.get(Servo.class, "ramp_srv"); //Create servo object
     }
 
     // Method to set the attribute that denotes if a pixel was loaded or unloaded = true/false
@@ -78,6 +79,7 @@ public class Ramp{
             rampCurPosition = STORE;
         }
     }
+
     // Method returns if pixel is loaded
     public boolean isPixelLoaded() {
         return pixelLoaded;
@@ -105,7 +107,7 @@ public class Ramp{
 
     // Method returns current Ramp Servo position
     public void getTelemetryData() {
-        telemetry.addData("Ramp Position: ", SRV_R.getPosition());
+        bot.telemetry.addData("Ramp Position: ", SRV_R.getPosition());
     }
 
     // Method used to easily test the ramps functionality. This function, if possible, should use
