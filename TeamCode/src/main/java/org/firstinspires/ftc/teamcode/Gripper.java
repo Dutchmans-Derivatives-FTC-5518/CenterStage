@@ -11,6 +11,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class Gripper{
     private Servo SRV_LG, SRV_RG;
     private DcMotor MTR_LVS, MTR_RVS;
