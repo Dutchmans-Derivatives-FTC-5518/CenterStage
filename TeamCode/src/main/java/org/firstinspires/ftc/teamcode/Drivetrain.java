@@ -1,11 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 //import the necessary packages for instantiating Motor
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+//import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -39,23 +39,26 @@ public class Drivetrain{
 
     // instantiation of the class
     public Drivetrain(HardwareMap hardwareMap, Gamepad iGamepad1, Telemetry iTelemetry) {
-
         // Take the passed in value of gamepad1 and telemetry and assign to class variables.
         gamepad1 = iGamepad1;
         telemetry = iTelemetry;
 
+        // Setup Motors
         MTR_LF = hardwareMap.dcMotor.get("left_front_mtr"); //instantiate 4 motors
         MTR_LB = hardwareMap.dcMotor.get("left_back_mtr");
         MTR_RF = hardwareMap.dcMotor.get("right_front_mtr");
         MTR_RB = hardwareMap.dcMotor.get("right_back_mtr");
-        imu = hardwareMap.get(IMU.class, "imu");
         MTR_LF.setDirection(DcMotor.Direction.REVERSE);
         MTR_LB.setDirection(DcMotor.Direction.REVERSE);
+
+        // Set up IMU
+        imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
                 RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
         imu.initialize(parameters);
         //TODO: Test the IMU parameters and see if it works
+
         leftFrontPower = 0.0;
         leftBackPower = 0.0;
         rightFrontPower = 0.0;
@@ -107,7 +110,9 @@ public class Drivetrain{
     public double getRightBackPower() {
         return rightBackPower;
     }
+
     public double getBotHeading() {return botHeading;}
+
     public void getTelemetryData() {
         telemetry.addData("Left Front: ", getLeftFrontPower());
         telemetry.addData("Left Back: ", getLeftBackPower());
