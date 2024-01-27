@@ -22,6 +22,7 @@ public class Gripper{
     private double dOpen = 0.0;
     private double dGuard = 0.12;
     private double dClosed = 0.19;
+    private int relPosition;
 
     // TODO: Check encoders
 
@@ -30,12 +31,15 @@ public class Gripper{
         SRV_RG = hwMap.get(Servo.class, "right_grip_srv");
         MTR_LVS = hwMap.get(DcMotor.class, "left_viper_mtr");
         MTR_RVS = hwMap.get(DcMotor.class, "right_viper_mtr");
+        relPosition = 0;
         //TODO: May have to reverse the motor direction to spin other way
         // Set encoder to 0 ticks
         MTR_LVS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         MTR_RVS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         // Restart motor encoder
-        moveSlideDown();
+        MTR_LVS.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        MTR_RVS.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        idle();
         // Open Grippers
         SRV_LG.setDirection(Servo.Direction.REVERSE);
         openGripper();
@@ -68,8 +72,6 @@ public class Gripper{
         MTR_LVS.setTargetPosition(0);
         MTR_RVS.setTargetPosition(0);
         guardGripper();
-        MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         powerArm();
     }
 
@@ -95,6 +97,7 @@ public class Gripper{
         MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         powerArm();
+        idle();
     }
 
     public void powerArm() {
@@ -114,5 +117,20 @@ public class Gripper{
     public void debugGripper(double angle) {
         SRV_LG.setPosition(angle);
         SRV_RG.setPosition(angle);
+    }
+    public void idle(){
+        while(MTR_LVS.isBusy() || MTR_RVS.isBusy()) {idle();}
+        MTR_LVS.setPower(0);
+        MTR_RVS.setPower(0);
+    }
+    public void moveToPosition(int position){
+        if (position < relPosition) {
+            MTR_LVS.setPower(-MTR_LVS_PW);
+            MTR_RVS.setPower(-MTR_RVS_PW);
+        }
+        else{
+            MTR_LVS.setPower(MTR_LVS_PW);
+            MTR_RVS.setPower(MTR_RVS_PW);
+        }
     }
 }
