@@ -44,6 +44,7 @@ public class Gripper{
         // Set encoder to 0 ticks
         MTR_LVS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         MTR_RVS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        guardGripper();
     }
     /*public Gripper(HardwareMap hardwareMap, Telemetry iTelemetry) {
         // Take the passed in value of telemetry and assign to class variables.

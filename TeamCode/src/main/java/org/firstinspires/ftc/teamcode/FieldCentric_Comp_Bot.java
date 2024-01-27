@@ -34,35 +34,42 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
         while (opModeIsActive())
         {
             // Pre-match set up start positions
-            myIntake.deployIntake(); // Deploy the intake from the storage position to start match.
-            myGripper.guardGripper(); // Put gripper into the guard position to start match.
-            myRamp.moveRampStore(); // Place ramp in the store position for start match.
-            myGripper.moveSlideDown(); // TODO: this isn't the right function here. This should be updated after all the new code for the viper slides is written.
+            //myIntake.deployIntake(); // Deploy the intake from the storage position to start match.
+            //myGripper.guardGripper(); // Put gripper into the guard position to start match.
+            //myRamp.moveRampStore(); // Place ramp in the store position for start match.
+            //myGripper.moveSlideDown(); // TODO: this isn't the right function here. This should be updated after all the new code for the viper slides is written.
 
             //**************************************************************************************
             // ============== GamePad 1 Controls ====================================================
             myDriveTrain.drive();
             if (gamepad1.left_trigger != 0){   // TODO: All of these should be thought about and made sure they are working as intended.
-                myRamp.moveRampDown();  // Move ramp to the floor
-                sleep(250);
+                //myRamp.moveRampDown();  // Move ramp to the floor
+                //sleep(500);
                 myIntake.intakePixel(); // Start intake roller
+
                 // TODO: Should we disable the drivetrain at this point so we don't drag the ramp on the ground?
             }
-            if (gamepad1.left_trigger == 0 || gamepad1.right_trigger == 0){
+            if (gamepad1.left_trigger < 0.3 || gamepad1.right_trigger < 0.3){
                 myIntake.stopIntake(); // stop Intake
-                sleep(250); // Pause for a moment
-                myRamp.moveRampStore(); // Move the ramp to STORE
+                //myRamp.moveRampStore();
+                //sleep(250); // Pause for a moment
+                //myRamp.moveRampStore(); // Move the ramp to STORE
                 // TODO: Re-enable the drivetrain?
             }
             if (gamepad1.right_trigger != 0){
-                myRamp.moveRampSet(); // Move ramp to set position to make sure Pixel in in the proper location.
-                sleep(500); // Pause for a moment  //TODO: This might be too short. Test it by watching the function on the robot.
-                myRamp.moveRampUp();  // Drop the pixel into the rest.
+                myIntake.outtakePixel();
+                sleep(500); // Pause for a moment
+                //myRamp.moveRampSet(); // Move ramp to set position to make sure Pixel in in the proper location.
+                //sleep(500); // Pause for a moment  //TODO: This might be too short. Test it by watching the function on the robot.
+                //myRamp.moveRampUp();  // Drop the pixel into the rest.
             }
-            if (gamepad1.a) {  // Cross Symbol
+            if (gamepad1.dpad_up){myRamp.moveRampUp();}
+            if (gamepad1.dpad_down){myRamp.moveRampDown();}
+            if (gamepad1.dpad_left) {myRamp.moveRampStore();}
+           /* if (gamepad1.a) {  // Cross Symbol
                 myIntake.outtakePixel(); // Used to clear a jam, not sure this will work or be needed.
             }
-
+*/
             //**************************************************************************************
             //============== GamePad 2 Controls ====================================================
             if (gamepad2.y) { // Triangle Symbol
