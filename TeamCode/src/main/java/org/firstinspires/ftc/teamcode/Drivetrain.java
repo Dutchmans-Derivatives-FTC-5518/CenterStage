@@ -1,18 +1,18 @@
 package org.firstinspires.ftc.teamcode;
 
 //import the necessary packages for instantiating Motor
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.IMU;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import com.qualcomm.robotcore.hardware.HardwareMap;
+
+//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+//import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+//import com.qualcomm.robotcore.hardware.HardwareMap;
+//import org.firstinspires.ftc.robotcore.external.Telemetry;
+//import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class Drivetrain{
     private double y; //value of y on joystick
@@ -34,28 +34,29 @@ public class Drivetrain{
     DcMotor MTR_RF;
     DcMotor MTR_RB;
     IMU imu;
-    Gamepad gamepad1;
-    Telemetry telemetry;
+    FieldCentric_Comp_Bot bot;
 
     // instantiation of the class
-    public Drivetrain(HardwareMap hardwareMap, Gamepad iGamepad1, Telemetry iTelemetry) {
-
+    public Drivetrain(FieldCentric_Comp_Bot iBot) {
         // Take the passed in value of gamepad1 and telemetry and assign to class variables.
-        gamepad1 = iGamepad1;
-        telemetry = iTelemetry;
+        bot = iBot;
 
-        MTR_LF = hardwareMap.dcMotor.get("left_front_mtr"); //instantiate 4 motors
-        MTR_LB = hardwareMap.dcMotor.get("left_back_mtr");
-        MTR_RF = hardwareMap.dcMotor.get("right_front_mtr");
-        MTR_RB = hardwareMap.dcMotor.get("right_back_mtr");
-        imu = hardwareMap.get(IMU.class, "imu");
+        // Setup Motors
+        MTR_LF = bot.hardwareMap.dcMotor.get("left_front_mtr"); //instantiate 4 motors
+        MTR_LB = bot.hardwareMap.dcMotor.get("left_back_mtr");
+        MTR_RF = bot.hardwareMap.dcMotor.get("right_front_mtr");
+        MTR_RB = bot.hardwareMap.dcMotor.get("right_back_mtr");
         MTR_LF.setDirection(DcMotor.Direction.REVERSE);
         MTR_LB.setDirection(DcMotor.Direction.REVERSE);
+
+        // Set up IMU
+        imu = bot.hardwareMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
                 RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
         imu.initialize(parameters);
         //TODO: Test the IMU parameters and see if it works
+
         leftFrontPower = 0.0;
         leftBackPower = 0.0;
         rightFrontPower = 0.0;
@@ -64,9 +65,9 @@ public class Drivetrain{
 
     public void drive(){
         //---------------------Gamepad 1 Controls/Drivetrain Movement----------------------//
-        y = -(gamepad1.left_stick_y); // Reversed Value
-        x = gamepad1.left_stick_x * sensitivity ; // The double value on the left is a sensitivity setting (change when needed)
-        rx = gamepad1.right_stick_x; // Rotational Value
+        y = -(bot.gamepad1.left_stick_y); // Reversed Value
+        x = bot.gamepad1.left_stick_x * sensitivity ; // The double value on the left is a sensitivity setting (change when needed)
+        rx = bot.gamepad1.right_stick_x; // Rotational Value
 
         // Find the first angle (Yaw) to get the robot heading
         botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
@@ -107,12 +108,14 @@ public class Drivetrain{
     public double getRightBackPower() {
         return rightBackPower;
     }
+
     public double getBotHeading() {return botHeading;}
+
     public void getTelemetryData() {
-        telemetry.addData("Left Front: ", getLeftFrontPower());
-        telemetry.addData("Left Back: ", getLeftBackPower());
-        telemetry.addData("Right Front: ", getRightFrontPower());
-        telemetry.addData("Right Back: ", getRightBackPower());
-        telemetry.addData("Heading: ", ((int) Math.toDegrees(getBotHeading())) + " degrees");
+        bot.telemetry.addData("Left Front: ", getLeftFrontPower());
+        bot.telemetry.addData("Left Back: ", getLeftBackPower());
+        bot.telemetry.addData("Right Front: ", getRightFrontPower());
+        bot.telemetry.addData("Right Back: ", getRightBackPower());
+        bot.telemetry.addData("Heading: ", ((int) Math.toDegrees(getBotHeading())) + " degrees");
     }
 }
