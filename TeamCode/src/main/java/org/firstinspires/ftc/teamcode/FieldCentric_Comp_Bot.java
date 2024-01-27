@@ -71,7 +71,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             }
 */
             //**************************************************************************************
-            //============== GamePad 2 Controls ====================================================
+            //============== GamePad 2 Controls/Arm ====================================================
             if (gamepad2.y) { // Triangle Symbol
                 myGripper.moveSlideDown();
                 myGripper.openGripper();
