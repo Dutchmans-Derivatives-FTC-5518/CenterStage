@@ -20,7 +20,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
     Intake myIntake;
     Gripper myGripper;
     private final boolean isDebugMode = true;  // Used to deactivate DEBUG related code when testing isn't being used.
-
+    private boolean initiliazed;
     //@Override
 
     public void runOpMode() throws InterruptedException { // TODO: We should do something proper with this thrown exception to make sure we handle things cleanly.
@@ -33,6 +33,10 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
         if (isStopRequested()) return;
         while (opModeIsActive())
         {
+            if (initiliazed) {
+                myIntake.deployIntake();
+                initiliazed = false;
+            }
             // Pre-match set up start positions
             //myIntake.deployIntake(); // Deploy the intake from the storage position to start match.
             //myGripper.guardGripper(); // Put gripper into the guard position to start match.

@@ -13,8 +13,8 @@ public class Intake{
     private boolean deployed = false; // Attribute of if the intake mechanism has been dropped down at the start of the match
     private double deployPower = -0.5; // Attribute for how much power needed to deploy
     private long deployTime = 250; // Attribute for how much time needed to deploy
-    private double intakePower = 1; // Power for how much the intake needs to spin pieces in
-    private double outtakePower = -.7; // Power for how much the intake needs to spin pieces out
+    private double intakePower = .6; // Power for how much the intake needs to spin pieces in
+    private double outtakePower = -.5; // Power for how much the intake needs to spin pieces out
     private boolean pixelLoaded = false; // Attribute denoting if there is a pixel thru the intake
 
     // TODO: Figure out a way to find out if a pixel is in intake
@@ -29,7 +29,7 @@ public class Intake{
         bot = iBot;
         // Get the motors/servos ready.
         MTR_I = bot.hardwareMap.dcMotor.get("intake_mtr"); //create intake motor object
-        deployIntake();
+        //deployIntake();
     }
 
     // Method to set the attribute that denotes if a pixel was loaded or unloaded = true/false
