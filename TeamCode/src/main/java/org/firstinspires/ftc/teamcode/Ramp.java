@@ -20,9 +20,8 @@ public class Ramp{
     public static final double STORE = 0; // static variable denoting ramp stored
     public static final double DOWN = -1;
     public final double angUp = 0.6;  // static variable denoting ramp up
-    public final double angSet = 0.4;  // static variable denoting ramp up
-    public final double angStore = 0.3; // static variable denoting ramp stored
-    public final double angDown = 0.22; // static variable denoting ramp down
+    public final double angStore = 0.4; // static variable denoting ramp stored
+    public final double angDown = 0.20; // static variable denoting ramp down
     public static final int STORE_WITH_PIXEL = 9; // static variable denoting ramp stored with pixel
 
     // TODO: need to define what store with pixel is/ how we can change it
@@ -39,6 +38,7 @@ public class Ramp{
         rampCurPosition = STORE; // Set position to store
         pixelLoaded = false; // Set pixel loaded to false
         SRV_R = bot.hardwareMap.get(Servo.class, "ramp_srv"); //Create servo object
+        moveRampStore();
     }
 
     // Method to set the attribute that denotes if a pixel was loaded or unloaded = true/false
@@ -54,19 +54,19 @@ public class Ramp{
     }
 
     // Move the ramp to SET position
+    /*
     public void moveRampSet() {
         // Write code to move the Ramp up ex. SRV_R.setPosition(RampUpPos); //110 degrees
-        SRV_R.setPosition(angSet);
+        SRV_R.setPosition(angStore);
         rampCurPosition = SET;
     }
-
+*/
     // Move the ramp to DOWN position
     public void moveRampDown() {
         // You can add check if pixel loaded to not move down
-        if(!isPixelLoaded()){
-            SRV_R.setPosition(angDown);
-            rampCurPosition = DOWN;
-        }
+        SRV_R.setPosition(angDown);
+        rampCurPosition = DOWN;
+        //if(!isPixelLoaded()){}
     }
     // Method used to put the ramp into the STORE position and set the tracking variables.
     public void moveRampStore() {
