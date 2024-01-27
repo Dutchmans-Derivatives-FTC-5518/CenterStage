@@ -91,7 +91,8 @@ public class Gripper{
         guardGripper();
         MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        powerArm();
+        MTR_LVS.setPower(-0.5);
+        MTR_RVS.setPower(-0.3);
     }
 
     public void moveSlideLow() {
@@ -99,7 +100,8 @@ public class Gripper{
         MTR_RVS.setTargetPosition(500);
         MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        powerArm();
+        MTR_LVS.setPower(0.6);
+        MTR_RVS.setPower(0.4);
     }
 
     public void moveSlideMiddle() {
@@ -107,19 +109,21 @@ public class Gripper{
         MTR_RVS.setTargetPosition(1000);
         MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        powerArm();
+        MTR_LVS.setPower(0.4);
+        MTR_RVS.setPower(0.2);
     }
     public void moveSlideHigh() {
         MTR_LVS.setTargetPosition(3000);
         MTR_RVS.setTargetPosition(3000);
         MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        powerArm();
+        MTR_LVS.setPower(0.3);
+        MTR_RVS.setPower(0.1);
     }
-    public void powerArm() {
+    /*public void powerArm() {
         MTR_LVS.setPower(MTR_LVS_PW);
         MTR_RVS.setPower(MTR_RVS_PW);
-    }
+    }*/
     // Method returns gripper servo positions
     public void getTelemetryData() {
         bot.telemetry.addData("SRV_RG Position: ", SRV_RG.getPosition());
