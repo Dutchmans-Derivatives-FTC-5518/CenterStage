@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-//import the necessary packages for instantiating Motor
+// Import the necessary packages for instantiating Motor
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;

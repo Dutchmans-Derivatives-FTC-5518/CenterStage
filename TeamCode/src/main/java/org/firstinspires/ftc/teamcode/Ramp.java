@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-//import the necessary packages for instantiating Servo/Hardware Map
+// Import the necessary packages for instantiating Servo/Hardware Map
 import com.qualcomm.robotcore.hardware.Servo;
 
 //import org.firstinspires.ftc.robotcore.external.Telemetry;

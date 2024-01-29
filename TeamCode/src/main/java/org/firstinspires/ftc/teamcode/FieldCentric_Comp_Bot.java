@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-//import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+// Import the necessary packages for instantiating Motor
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 //import com.qualcomm.robotcore.hardware.DcMotorSimple;
 //import com.qualcomm.robotcore.hardware.HardwareMap;
 //import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+//import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 
 @TeleOp
 public class FieldCentric_Comp_Bot extends LinearOpMode{
@@ -20,7 +21,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
     Intake myIntake;
     Gripper myGripper;
     private final boolean isDebugMode = true;  // Used to deactivate DEBUG related code when testing isn't being used.
-    private boolean initiliazed;
+    private boolean initialized;
     //@Override
 
     public void runOpMode() throws InterruptedException { // TODO: We should do something proper with this thrown exception to make sure we handle things cleanly.
@@ -33,9 +34,9 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
         if (isStopRequested()) return;
         while (opModeIsActive())
         {
-            if (initiliazed) {
+            if (initialized) {
                 myIntake.deployIntake();
-                initiliazed = false;
+                initialized = false;
             }
             // Pre-match set up start positions
             //myIntake.deployIntake(); // Deploy the intake from the storage position to start match.
