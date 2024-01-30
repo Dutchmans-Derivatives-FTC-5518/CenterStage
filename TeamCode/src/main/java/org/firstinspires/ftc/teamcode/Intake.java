@@ -49,7 +49,7 @@ public class Intake{
         MTR_I.setPower(0);
     }
 
-    // TODO: Test intake and outtake and see if they work in the main method (when button held)
+    // TODO: Test intake and outtake and see if they work in the main method
     public void intakePixel() {
         // Write code to intake the pixel
         MTR_I.setPower(intakePower); //motor is sent power values
