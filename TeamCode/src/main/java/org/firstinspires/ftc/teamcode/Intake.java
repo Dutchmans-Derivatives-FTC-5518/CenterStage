@@ -66,7 +66,7 @@ public class Intake{
 		// the intake needs to track the pixel since it just passes it to the ramp.
     }
     public void stopIntake() {
-        // Write code to intake the pixel
+        // Stop the intake from spinning
         MTR_I.setPower(0); //motor is sent power values
     }
 
