@@ -42,12 +42,14 @@ public class Drivetrain{
         bot = iBot;
 
         // Setup Motors
-        MTR_LF = bot.hardwareMap.dcMotor.get("left_front_mtr"); //instantiate 4 motors
+        MTR_LF = bot.hardwareMap.dcMotor.get("left_front_mtr");
+        MTR_LF.setDirection(DcMotor.Direction.REVERSE); // Reverse Motor
+
         MTR_LB = bot.hardwareMap.dcMotor.get("left_back_mtr");
+        MTR_LB.setDirection(DcMotor.Direction.REVERSE); // Reverse Motor
+
         MTR_RF = bot.hardwareMap.dcMotor.get("right_front_mtr");
         MTR_RB = bot.hardwareMap.dcMotor.get("right_back_mtr");
-        MTR_LF.setDirection(DcMotor.Direction.REVERSE);
-        MTR_LB.setDirection(DcMotor.Direction.REVERSE);
 
         // Set up IMU
         imu = bot.hardwareMap.get(IMU.class, "imu");
@@ -109,7 +111,9 @@ public class Drivetrain{
         return rightBackPower;
     }
 
-    public double getBotHeading() {return botHeading;}
+    public double getBotHeading() {
+        return botHeading;
+    }
 
     public void getTelemetryData() {
         bot.telemetry.addData("Left Front: ", getLeftFrontPower());

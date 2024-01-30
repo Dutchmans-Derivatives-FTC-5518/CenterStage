@@ -36,35 +36,19 @@ public class Gripper{
         // Set up motors
         //TODO: May have to reverse the motor direction to spin other way
         SRV_LG = bot.hardwareMap.get(Servo.class, "left_grip_srv");
+        SRV_LG.setDirection(Servo.Direction.REVERSE); // Set servo of left gripper to run the opposite direction.
+
         SRV_RG = bot.hardwareMap.get(Servo.class, "right_grip_srv");
-        // Set servo of left gripper to run the opposite direction.
-        SRV_LG.setDirection(Servo.Direction.REVERSE);
+
+        MTR_RVS = bot.hardwareMap.get(DcMotor.class, "right_viper_mtr");
+        MTR_RVS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // Set Motor to 0 ticks.
 
         MTR_LVS = bot.hardwareMap.get(DcMotor.class, "left_viper_mtr");
-        MTR_RVS = bot.hardwareMap.get(DcMotor.class, "right_viper_mtr");
-        // Set encoder to 0 ticks
-        MTR_LVS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        MTR_RVS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        MTR_LVS.setDirection(DcMotor.Direction.REVERSE);
+        MTR_LVS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Set Motor to 0 ticks.
+        MTR_LVS.setDirection(DcMotor.Direction.REVERSE); // Reverse Motor direction
+
         guardGripper();
     }
-    /*public Gripper(HardwareMap hardwareMap, Telemetry iTelemetry) {
-        // Take the passed in value of telemetry and assign to class variables.
-        telemetry = iTelemetry;
-
-        // Set up motors
-        //TODO: May have to reverse the motor direction to spin other way
-        SRV_LG = hardwareMap.get(Servo.class, "left_grip_srv");
-        SRV_RG = hardwareMap.get(Servo.class, "right_grip_srv");
-        // Set servo of left gripper to run the opposite direction.
-        SRV_LG.setDirection(Servo.Direction.REVERSE);
-
-        MTR_LVS = hardwareMap.get(DcMotor.class, "left_viper_mtr");
-        MTR_RVS = hardwareMap.get(DcMotor.class, "right_viper_mtr");
-        // Set encoder to 0 ticks
-        MTR_LVS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        MTR_RVS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    }*/
 
     public void openGripper() {
         SRV_LG.setPosition(dGripperOpen);

@@ -18,8 +18,13 @@ public class Intake{
     // create necessary variables to set motor for intake
     DcMotor MTR_I;
 
+    FieldCentric_Comp_Bot bot;
+
     // instantiation of the class
-    public Intake(HardwareMap hardwareMap) {
+    public Intake(FieldCentric_Comp_Bot iBot) {
+        // Take the passed in value of telemetry and assign to class variables.
+        bot = iBot;
+
         // TODO: Check if these values such as power and time are correct for the intake
         deployed = false; // set deployed to true
         deployPower = -0.5;
@@ -27,7 +32,7 @@ public class Intake{
         intakePower = -1;
         outtakePower = 1;
         pixelLoaded = false; // set pixel loaded to false
-        MTR_I = hardwareMap.dcMotor.get("intake_mtr"); //create intake motor object
+        MTR_I = bot.hardwareMap.dcMotor.get("intake_mtr"); //create intake motor object
         deployIntake();
     }
 

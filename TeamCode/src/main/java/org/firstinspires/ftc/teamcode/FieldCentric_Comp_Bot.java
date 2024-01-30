@@ -22,16 +22,17 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
 
     //@Override
 
-
     public void runOpMode() throws InterruptedException {
-        myDriveTrain = new Drivetrain(this.hardwareMap, this.gamepad1, this.telemetry);
-        myRamp = new Ramp(this.hardwareMap);
-        myIntake = new Intake(this.hardwareMap);
-        myGripper = new Gripper(this.hardwareMap);
+        myDriveTrain = new Drivetrain(this);
+        myRamp = new Ramp(this);
+        myIntake = new Intake(this);
+        myGripper = new Gripper(this);
 
         waitForStart();
         if (isStopRequested()) return;
         while (opModeIsActive()){
+            //**************************************************************************************
+            // ---------------------Gamepad 1 Controls ---------------------------------------------
             myDriveTrain.drive();
             if (gamepad1.left_trigger != 0){
                 myRamp.moveRampDown();
@@ -43,36 +44,54 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             if (gamepad1.right_trigger != 0){
                 myRamp.moveRampUp();
             }
-            if (gamepad1.a){ myIntake.outtakePixel(); }
-            myDriveTrain.getTelemetryData();
-            if(gamepad1.x) { myRamp.getTelemetryData();} //TODO: Check ramp angles, use this for testing Mr.Fisher
+            if (gamepad1.a){
+                myIntake.outtakePixel();
+            }
 
-            //---------------------Gamepad 2 Controls/Arm Movement----------------------
+//            myDriveTrain.getTelemetryData();
+//            if(gamepad1.x) {
+//                myRamp.getTelemetryData();
+//            } //TODO: Check ramp angles, use this for testing Mr.Fisher
+
+            //**************************************************************************************
+            // ---------------------Gamepad 2 Controls ---------------------------------------------
             // Hotkeys (Automation to raise slide up)
             if (gamepad2.y) {
                 myGripper.moveSlideDown();
                 myGripper.openGripper();
             }
-            if (gamepad2.b){myGripper.moveSlideLow();}
-            if (gamepad2.x){myGripper.moveSlideMiddle();}
-            if (gamepad2.a){myGripper.moveSlideHigh();}
+            if (gamepad2.b){
+                myGripper.moveSlideLow();
+            }
+            if (gamepad2.x){
+                myGripper.moveSlideMiddle();
+            }
+            if (gamepad2.a){
+                myGripper.moveSlideHigh();
+            }
             // Hotkeys (to change gripper position)
-            if (gamepad2.left_trigger != 0) {myGripper.openGripper();}
-            if (gamepad2.right_trigger != 0) {myGripper.closeGripper();}
+            if (gamepad2.left_trigger != 0) {
+                myGripper.openGripper();
+            }
+            if (gamepad2.right_trigger != 0) {
+                myGripper.closeGripper();
+            }
             // Show the elapsed game time and wheel power.
             // Useful telemetry data in case needed for testing and to find heading of robot
+            myDriveTrain.getTelemetryData();
+            myRamp.getTelemetryData();
+            myGripper.getTelemetryData();
             telemetry.update();
 
+            //**************************************************************************************
             //--------------------- DEBUG Code --------------------------------------------
             if (gamepad1.b){
                 myGripper.debugSlide();
-
 //                myRamp.debugRamp(0.48);
 //                sleep(2500);
 //                myRamp.debugRamp(0.15);
 //                sleep(2500);
 //                myRamp.debugRamp(0.1);
-
             }
         }
     }

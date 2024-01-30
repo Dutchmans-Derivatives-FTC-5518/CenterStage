@@ -35,9 +35,10 @@ public class Ramp{
         // Take the passed in value of telemetry and assign to class variables.
         bot = iBot;
 
+        SRV_R = bot.hardwareMap.get(Servo.class, "ramp_srv"); //Create servo object
+
         rampCurPosition = STORE; // Set position to store
         pixelLoaded = false; // Set pixel loaded to false
-        SRV_R = bot.hardwareMap.get(Servo.class, "ramp_srv"); //Create servo object
         moveRampStore();
     }
 
