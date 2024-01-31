@@ -2,17 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 // Import the necessary packages for instantiating Motor
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-
-//import com.qualcomm.robotcore.hardware.HardwareMap;
-//import org.firstinspires.ftc.robotcore.external.Telemetry;
-//import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-//import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-//import com.qualcomm.robotcore.hardware.DcMotor;
-//import com.qualcomm.robotcore.hardware.Gamepad;
-//import com.qualcomm.robotcore.hardware.IMU;
-
 
 public class Gripper{
     private Servo SRV_LG, SRV_RG;

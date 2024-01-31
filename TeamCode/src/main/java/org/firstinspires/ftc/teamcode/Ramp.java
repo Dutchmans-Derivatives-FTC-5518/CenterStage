@@ -3,14 +3,6 @@ package org.firstinspires.ftc.teamcode;
 // Import the necessary packages for instantiating Servo/Hardware Map
 import com.qualcomm.robotcore.hardware.Servo;
 
-//import org.firstinspires.ftc.robotcore.external.Telemetry;
-//import com.qualcomm.robotcore.hardware.HardwareMap;
-//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
-//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-//import org.firstinspires.ftc.robotcore.external.Telemetry;
-//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-//import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
 public class Ramp{
     private double rampCurPosition; // attribute of ramp denoting its current position
     private boolean pixelLoaded; // attribute denoting if the ramp has a pixel

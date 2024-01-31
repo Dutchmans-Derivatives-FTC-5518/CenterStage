@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 //import the necessary packages for instantiating Motor/Hardware Map
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake{
     private boolean deployed; // attribute of if the intake mechanism has been dropped down at the start of the match

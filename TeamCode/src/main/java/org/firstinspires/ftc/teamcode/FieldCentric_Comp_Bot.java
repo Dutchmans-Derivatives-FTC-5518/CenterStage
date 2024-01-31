@@ -1,17 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.DcMotor;
-//import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 @TeleOp
 public class FieldCentric_Comp_Bot extends LinearOpMode{
@@ -34,6 +24,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             //**************************************************************************************
             // ---------------------Gamepad 1 Controls ---------------------------------------------
             myDriveTrain.drive();
+
             if (gamepad1.left_trigger != 0){
                 if (!myRamp.isRampDown()) {
                     myRamp.moveRampDown();
@@ -49,7 +40,6 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
 
             if (gamepad1.dpad_down){
                 myRamp.moveRampDown();
-
             }
             else if (gamepad1.dpad_left){
                 myRamp.moveRampStore();
@@ -57,11 +47,6 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             else if (gamepad1.dpad_up){
                 myRamp.moveRampUp();
             }
-
-//            myDriveTrain.getTelemetryData();
-//            if(gamepad1.x) {
-//                myRamp.getTelemetryData();
-//            } //TODO: Check ramp angles, use this for testing Mr.Fisher
 
             //**************************************************************************************
             // ---------------------Gamepad 2 Controls ---------------------------------------------
@@ -87,12 +72,6 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             else if (gamepad2.right_trigger != 0) {
                 myGripper.closeGripper();
             }
-            // Show the elapsed game time and wheel power.
-            // Useful telemetry data in case needed for testing and to find heading of robot
-            myDriveTrain.getTelemetryData();
-            myRamp.getTelemetryData();
-            myGripper.getTelemetryData();
-            telemetry.update();
 
             //**************************************************************************************
             //--------------------- DEBUG Code --------------------------------------------
@@ -104,55 +83,14 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
 //                sleep(2500);
 //                myRamp.debugRamp(0.1);
             }
+
+            //**************************************************************************************
+            //--------------------- TELEMETRY Code --------------------------------------------
+            // Useful telemetry data in case needed for testing and to find heading of robot
+            myDriveTrain.getTelemetryData();
+            myRamp.getTelemetryData();
+            myGripper.getTelemetryData();
+            telemetry.update();
         }
     }
-/*
-    public void armMovement(int selection) {
-
-        //---------------------Gamepad 3 Controls/Arm Movement----------------------
-        System.out.println("filler");
-    }
-
-    public void initialize(){
-
-        //---------------------Start of Match----------------------
-        SRV_R.setPosition(RampStorePos); //110 degrees
-        MTR_I.setPower(-0.5);
-        sleep(1500);    // TODO: Check the timing of this once robot is running. Maybe turn this into a global.
-        MTR_I.setPower(0);
-        isRampDown = false;
-        isRampStore = true;
-        isRampUp = false;
-    }
-
-    public void pickup(){
-
-        //---------------------Gamepad 1 Controls/Intake Movement----------------------
-        SRV_R.setPosition(RampDownPos); //115 degrees
-        sleep(1000);
-        MTR_I.setPower(1);
-        isRampDown = true;
-        isRampStore = false;
-        isRampUp = false;
-    }
-
-    public void storage(){
-
-        //---------------------Gamepad 1 Controls/Ramp Movement----------------------
-        MTR_I.setPower(0);
-        SRV_R.setPosition(0.37); //110 degrees  // TODO: This should be a global.
-        isRampDown = false;
-        isRampStore = true;
-        isRampUp = false;
-    }
-
-    public void up(){
-
-        //---------------------Gamepad 1 Controls/Ramp Movement----------------------
-        SRV_R.setPosition(RampUpPos); //110 degrees
-        isRampDown = false;
-        isRampStore = false;
-        isRampUp = true;
-    }
- */
 }

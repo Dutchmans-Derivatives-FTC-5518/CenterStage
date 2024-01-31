@@ -6,14 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
-//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-//import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-//import com.qualcomm.robotcore.hardware.HardwareMap;
-//import org.firstinspires.ftc.robotcore.external.Telemetry;
-//import com.qualcomm.robotcore.hardware.Gamepad;
-
 public class Drivetrain{
     private double y; //value of y on joystick
     private double x; //value of x on joystick
@@ -26,7 +18,10 @@ public class Drivetrain{
     private double leftBackPower;
     private double rightFrontPower;
     private double rightBackPower;
-    private static double sensitivity = 1.3;
+    private static double xSensitivity = 1.3;
+    private static double ySensitivity = 0.75;
+    private static double rxSensitivity = 0.75;
+
 
     // Create necessary variables to control each 4 wheels and IMU
     DcMotor MTR_LF;
@@ -67,9 +62,9 @@ public class Drivetrain{
 
     public void drive(){
         //---------------------Gamepad 1 Controls/Drivetrain Movement----------------------//
-        y = -(bot.gamepad1.left_stick_y) * .75; // Reversed Value
-        x = bot.gamepad1.left_stick_x * sensitivity ; // The double value on the left is a sensitivity setting (change when needed)
-        rx = bot.gamepad1.right_stick_x * .75; // Rotational Value
+        y = -(bot.gamepad1.left_stick_y) * ySensitivity; // Reversed Value
+        x = bot.gamepad1.left_stick_x * xSensitivity ; // The double value on the left is a sensitivity setting (change when needed)
+        rx = bot.gamepad1.right_stick_x * rxSensitivity; // Rotational Value
 
         // Find the first angle (Yaw) to get the robot heading
         botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
@@ -91,22 +86,22 @@ public class Drivetrain{
         MTR_RB.setPower(rightBackPower);
     }
 
-    // returns power to left front motor
+    // Returns power to left front motor
     public double getLeftFrontPower() {
         return leftFrontPower;
     }
 
-    //returns power to left back motor
+    // Returns power to left back motor
     public double getLeftBackPower() {
         return leftBackPower;
     }
 
-    //returns power to right front motor
+    // Returns power to right front motor
     public double getRightFrontPower() {
         return rightFrontPower;
     }
 
-    //returns power to right back motor
+    // Returns power to right back motor
     public double getRightBackPower() {
         return rightBackPower;
     }
