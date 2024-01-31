@@ -26,7 +26,7 @@ public class Drivetrain{
     private double leftBackPower;
     private double rightFrontPower;
     private double rightBackPower;
-    private static double sensitivity = 1.7;
+    private static double sensitivity = 1.3;
 
     // Create necessary variables to control each 4 wheels and IMU
     DcMotor MTR_LF;
@@ -67,9 +67,9 @@ public class Drivetrain{
 
     public void drive(){
         //---------------------Gamepad 1 Controls/Drivetrain Movement----------------------//
-        y = -(bot.gamepad1.left_stick_y); // Reversed Value
+        y = -(bot.gamepad1.left_stick_y) * .75; // Reversed Value
         x = bot.gamepad1.left_stick_x * sensitivity ; // The double value on the left is a sensitivity setting (change when needed)
-        rx = bot.gamepad1.right_stick_x; // Rotational Value
+        rx = bot.gamepad1.right_stick_x * .75; // Rotational Value
 
         // Find the first angle (Yaw) to get the robot heading
         botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);

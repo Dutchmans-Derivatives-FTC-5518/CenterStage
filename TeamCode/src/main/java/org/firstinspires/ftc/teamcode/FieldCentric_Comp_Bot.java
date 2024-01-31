@@ -35,17 +35,27 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             // ---------------------Gamepad 1 Controls ---------------------------------------------
             myDriveTrain.drive();
             if (gamepad1.left_trigger != 0){
-                myRamp.moveRampDown();
+                if (!myRamp.isRampDown()) {
+                    myRamp.moveRampDown();
+                }
                 myIntake.intakePixel();
             }
-            if (gamepad1.left_trigger == 0 || gamepad1.right_trigger == 0){
+            else if (gamepad1.right_trigger != 0){
+                myIntake.outtakePixel();
+            }
+            else if (gamepad1.left_trigger == 0 || gamepad1.right_trigger == 0){
                 myIntake.stopIntake();
             }
-            if (gamepad1.right_trigger != 0){
-                myRamp.moveRampUp();
+
+            if (gamepad1.dpad_down){
+                myRamp.moveRampDown();
+
             }
-            if (gamepad1.a){
-                myIntake.outtakePixel();
+            else if (gamepad1.dpad_left){
+                myRamp.moveRampStore();
+            }
+            else if (gamepad1.dpad_up){
+                myRamp.moveRampUp();
             }
 
 //            myDriveTrain.getTelemetryData();
@@ -60,20 +70,21 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
                 myGripper.moveSlideDown();
                 myGripper.openGripper();
             }
-            if (gamepad2.b){
+            else if (gamepad2.b){
                 myGripper.moveSlideLow();
             }
-            if (gamepad2.x){
+            else if (gamepad2.x){
                 myGripper.moveSlideMiddle();
             }
-            if (gamepad2.a){
+            else if (gamepad2.a){
                 myGripper.moveSlideHigh();
             }
+
             // Hotkeys (to change gripper position)
             if (gamepad2.left_trigger != 0) {
                 myGripper.openGripper();
             }
-            if (gamepad2.right_trigger != 0) {
+            else if (gamepad2.right_trigger != 0) {
                 myGripper.closeGripper();
             }
             // Show the elapsed game time and wheel power.
