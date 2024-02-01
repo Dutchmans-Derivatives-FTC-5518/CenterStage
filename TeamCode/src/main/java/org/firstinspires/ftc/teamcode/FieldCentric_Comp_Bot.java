@@ -9,6 +9,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
     Ramp myRamp;
     Intake myIntake;
     Gripper myGripper;
+    Drone myDrone;
 
     //@Override
 
@@ -17,6 +18,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
         myRamp = new Ramp(this);
         myIntake = new Intake(this);
         myGripper = new Gripper(this);
+        myDrone = new Drone(this);
 
         waitForStart();
         if (isStopRequested()) return;
@@ -49,6 +51,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
                 sleep(1000);
                 myRamp.moveRampUp();
             }
+            if(gamepad1.left_trigger > 0.5 && gamepad2.right_trigger > 0.5){myDrone.launchDrone();}
 
             //**************************************************************************************
             // ---------------------Gamepad 2 Controls ---------------------------------------------
