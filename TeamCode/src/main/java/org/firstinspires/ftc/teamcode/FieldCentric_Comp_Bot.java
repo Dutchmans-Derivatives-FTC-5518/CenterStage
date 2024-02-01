@@ -45,6 +45,8 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
                 myRamp.moveRampStore();
             }
             else if (gamepad1.dpad_up){
+                myRamp.moveRampStore();
+                sleep(1000);
                 myRamp.moveRampUp();
             }
 
