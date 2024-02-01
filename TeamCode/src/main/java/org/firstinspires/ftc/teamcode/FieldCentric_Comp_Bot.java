@@ -51,7 +51,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
                 sleep(1000);
                 myRamp.moveRampUp();
             }
-            if(gamepad1.left_trigger > 0.5 && gamepad2.right_trigger > 0.5){myDrone.launchDrone();}
+            if(gamepad1.left_bumper && gamepad1.right_bumper){myDrone.launchDrone();}
 
             //**************************************************************************************
             // ---------------------Gamepad 2 Controls ---------------------------------------------
