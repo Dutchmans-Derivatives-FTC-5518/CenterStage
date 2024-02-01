@@ -8,8 +8,8 @@ public class Gripper{
     private Servo SRV_LG, SRV_RG;
     private DcMotor MTR_LVS, MTR_RVS;
     private int gripperCurrPosition;
-    private static final double MTR_LVS_PW = 0.5;
-    private static final double MTR_RVS_PW = 0.5;
+    private static final double MTR_LVS_PW = 0.6; //TODO: Check power values when testing
+    private static final double MTR_RVS_PW = 0.6;
     private int open = 1;
     private int closed = -1;
     private int guard = 0;
