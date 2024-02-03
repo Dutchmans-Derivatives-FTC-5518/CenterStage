@@ -77,9 +77,8 @@ public class AprilTagDetection extends LinearOpMode
     static final double     DRIVE_SPEED             = 0.6;
     static final double     TURN_SPEED              = 0.5;
     org.openftc.apriltag.AprilTagDetection tagOfInterest = null;
-    org.openftc.
 
-    @Override
+    //@Override
     public void runOpMode()
     {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -300,6 +299,7 @@ public class AprilTagDetection extends LinearOpMode
 
     void tagToTelemetry(org.openftc.apriltag.AprilTagDetection detection)
     {
+        /*
         telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
         telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
         telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
@@ -307,6 +307,6 @@ public class AprilTagDetection extends LinearOpMode
         telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", Math.toDegrees(detection.pose.yaw)));
         telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", Math.toDegrees(detection.pose.pitch)));
         telemetry.addLine(String.format("Rotation Roll: %.2f degrees", Math.toDegrees(detection.pose.roll)));
-
+*/
     }
 }
