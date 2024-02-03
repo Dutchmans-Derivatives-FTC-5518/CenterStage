@@ -31,15 +31,15 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
-import org.firstinspires.ftc.teamcode.FieldCentric_Comp_Bot;
 
 /*
  *  This OpMode illustrates the concept of driving an autonomous path based on Gyro (IMU) heading and encoder counts.
@@ -89,9 +89,9 @@ import org.firstinspires.ftc.teamcode.FieldCentric_Comp_Bot;
  *  Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Robot: Auto Drive By Gyro", group="Robot")
-@Disabled
-public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
+@Autonomous(name="CompAutoRedBD", group="Robot")
+//@Disabled
+public class CompAutoRedFar extends LinearOpMode {
 
 	// initiate all classes we may need
     
@@ -101,6 +101,13 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
 	private DcMotor         MTR_LB   = null;
 	private DcMotor         MTR_RF   = null;
 	private DcMotor         MTR_RB   = null;
+    private Servo SRV_R;
+    private Servo SRV_LG;
+    private Servo SRV_RG;
+    private Gripper myGripper;
+    private DcMotor MTR_LVS;
+    private DcMotor MTR_RVS;
+    private DcMotor MTR_I;
 
 	// Dilip TODO:  Need to also create variable for Ramp and Gripper as required
 
@@ -146,7 +153,7 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
     // Decrease these numbers if the heading does not settle on the correct value (eg: very agile robot with omni wheels)
     static final double     P_TURN_GAIN            = 0.02;     // Larger is more responsive, but also less stable
     static final double     P_DRIVE_GAIN           = 0.03;     // Larger is more responsive, but also less stable
-    FieldCentric_Comp_Bot bot = new FieldCentric_Comp_Bot();
+
     @Override
     public void runOpMode() {
 
@@ -157,8 +164,19 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
 		MTR_RF  = hardwareMap.get(DcMotor.class, "right_front_mtr");
 		MTR_RB  = hardwareMap.get(DcMotor.class, "right_back_mtr");
 	    //Dilip TODO:  Initialize and set for Ramp and Gripper as required
-	    bot.myRamp.moveRampStore();
-	    // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
+        SRV_R = hardwareMap.get(Servo.class, "ramp_srv"); //Create servo object
+        SRV_LG = hardwareMap.get(Servo.class, "left_grip_srv");
+        SRV_LG.setDirection(Servo.Direction.REVERSE); // Set servo of left gripper to run the opposite direction.
+        SRV_RG = hardwareMap.get(Servo.class, "right_grip_srv");
+        MTR_RVS = hardwareMap.get(DcMotor.class, "right_viper_mtr");
+        MTR_RVS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // Set Motor to 0 ticks.
+        MTR_I = hardwareMap.dcMotor.get("intake_mtr"); //create intake motor object
+
+        MTR_LVS = hardwareMap.get(DcMotor.class, "left_viper_mtr");
+        MTR_LVS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Set Motor to 0 ticks.
+        MTR_LVS.setDirection(DcMotor.Direction.REVERSE); // Reverse Motor direction
+
+        // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // When run, this OpMode should start both motors driving forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
 		
@@ -204,37 +222,54 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
 		// DILIP TODO NOTE: All the below are dummy bearings just to illustrate concept - we need to plot the correct bearing on the field 
 		// DILIP TODO: USe telemetry durign teleop to determine these bearings op
 
-        driveStraight(DRIVE_SPEED, 24.0, 0.0);    // Drive Forward 24"
-        turnToHeading( TURN_SPEED, -45.0);               // Turn  CW to -45 Degrees
-        holdHeading( TURN_SPEED, -45.0, 0.5);   // Hold -45 Deg heading for a 1/2 second
+        driveStraight(DRIVE_SPEED, 25.0, 0.0);    // Drive Forward 24"
+        turnToHeading( TURN_SPEED, 90.0);               // Turn  CW to -45 Degrees
+        //holdHeading( TURN_SPEED, 90, 0.5);   // Hold -45 Deg heading for a 1/2 second
 
-        driveStraight(DRIVE_SPEED, 17.0, -45.0);  // Drive Forward 17" at -45 degrees (12"x and 12"y)
-        turnToHeading( TURN_SPEED,  45.0);               // Turn  CCW  to  45 Degrees
-        holdHeading( TURN_SPEED,  45.0, 0.5);    // Hold  45 Deg heading for a 1/2 second
+        driveStraight(DRIVE_SPEED, -80, 90);  // Drive Forward 17" at -45 degrees (12"x and 12"y)
+        //holdHeading( TURN_SPEED,  45.0, 0.5);    // Hold  45 Deg heading for a 1/2 second
 		
 		// DILIP TODO - NEED to add code to call the methods in Gripper when we are at the right place
-        bot.myGripper.closeGripper();
+        MTR_I.setPower(-.5);
+        sleep(500);
+        MTR_I.setPower(0);
+        SRV_LG.setPosition(0.22);
+        SRV_RG.setPosition(0.22);
         sleep(1000);
-        bot.myGripper.moveSlideMiddle();
+        MTR_LVS.setTargetPosition(2000);
+        MTR_RVS.setTargetPosition(2000);
+        MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_LVS.setPower(0.6);
+        MTR_RVS.setPower(0.6);
+        sleep(2000);
+        SRV_LG.setPosition(0);
+        SRV_RG.setPosition(0);
+        sleep(2000);
+        SRV_R.setPosition(0.6);
+        sleep(4000);
+        MTR_LVS.setTargetPosition(0);
+        MTR_RVS.setTargetPosition(0);
+        SRV_LG.setPosition(0.12);
+        SRV_RG.setPosition(0.12);
+        MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_LVS.setPower(0.6);
+        MTR_RVS.setPower(0.6);
         sleep(1000);
-        bot.myGripper.openGripper();
+        SRV_LG.setPosition(0.22);
+        SRV_RG.setPosition(0.22);
         sleep(1000);
-        bot.myRamp.moveRampUp();
-        sleep(1000);
-        bot.myGripper.moveSlideDown();
-        sleep(1000);
-        bot.myGripper.closeGripper();
-        sleep(1000);
-        bot.myGripper.moveSlideMiddle();
-        sleep(1000);
-        bot.myGripper.openGripper();
-        sleep(1000);
-
-        driveStraight(DRIVE_SPEED, 17.0, 45.0);  // Drive Forward 17" at 45 degrees (-12"x and 12"y)
-        turnToHeading( TURN_SPEED,   0.0);               // Turn  CW  to 0 Degrees
-        holdHeading( TURN_SPEED,   0.0, 1.0);    // Hold  0 Deg heading for 1 second
-
-        driveStraight(DRIVE_SPEED,-48.0, 0.0);    // Drive in Reverse 48" (should return to approx. staring position)
+        MTR_LVS.setTargetPosition(2000);
+        MTR_RVS.setTargetPosition(2000);
+        MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_LVS.setPower(0.6);
+        MTR_RVS.setPower(0.6);
+        sleep(4000);
+        SRV_LG.setPosition(0);
+        SRV_RG.setPosition(0);
+        sleep(2000);
 
 		// Dilip TOD - ASsume this is where we park
         telemetry.addData("Path", "Complete");
