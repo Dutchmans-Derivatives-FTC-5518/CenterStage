@@ -225,7 +225,7 @@ public class CompAutoRedBD extends LinearOpMode {
         turnToHeading( TURN_SPEED, 90.0);               // Turn  CW to -45 Degrees
         //holdHeading( TURN_SPEED, 90, 0.5);   // Hold -45 Deg heading for a 1/2 second
 
-        driveStraight(DRIVE_SPEED, -40, 90);  // Drive Forward 17" at -45 degrees (12"x and 12"y)
+        driveStraight(DRIVE_SPEED, -47, 90);  // Drive Forward 17" at -45 degrees (12"x and 12"y)
         //holdHeading( TURN_SPEED,  45.0, 0.5);    // Hold  45 Deg heading for a 1/2 second
 		
 		// DILIP TODO - NEED to add code to call the methods in Gripper when we are at the right place
@@ -241,12 +241,12 @@ public class CompAutoRedBD extends LinearOpMode {
         MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         MTR_LVS.setPower(0.6);
         MTR_RVS.setPower(0.6);
-        sleep(2000);
+        sleep(4000);
         SRV_LG.setPosition(0);
         SRV_RG.setPosition(0);
-        sleep(2000);
+        sleep(1000);
         SRV_R.setPosition(0.6);
-        sleep(4000);
+        sleep(2000);
         MTR_LVS.setTargetPosition(0);
         MTR_RVS.setTargetPosition(0);
         SRV_LG.setPosition(0.12);
@@ -265,10 +265,10 @@ public class CompAutoRedBD extends LinearOpMode {
         MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         MTR_LVS.setPower(0.6);
         MTR_RVS.setPower(0.6);
-        sleep(4000);
+        sleep(2500);
         SRV_LG.setPosition(0);
         SRV_RG.setPosition(0);
-        sleep(2000);
+        sleep(1000);
 
 		// Dilip TOD - ASsume this is where we park
         telemetry.addData("Path", "Complete");
