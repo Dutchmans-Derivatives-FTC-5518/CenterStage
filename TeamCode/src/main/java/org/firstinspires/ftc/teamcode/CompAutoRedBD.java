@@ -229,36 +229,12 @@ public class CompAutoRedBD extends LinearOpMode {
         //holdHeading( TURN_SPEED,  45.0, 0.5);    // Hold  45 Deg heading for a 1/2 second
 		
 		// DILIP TODO - NEED to add code to call the methods in Gripper when we are at the right place
-        MTR_I.setPower(-.5);
+        MTR_I.setPower(-1);
         sleep(500);
         MTR_I.setPower(0);
         SRV_LG.setPosition(0.22);
         SRV_RG.setPosition(0.22);
-        sleep(1000);
-        MTR_LVS.setTargetPosition(2000);
-        MTR_RVS.setTargetPosition(2000);
-        MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        MTR_LVS.setPower(0.6);
-        MTR_RVS.setPower(0.6);
-        sleep(4000);
-        SRV_LG.setPosition(0);
-        SRV_RG.setPosition(0);
-        sleep(1000);
-        SRV_R.setPosition(0.6);
-        sleep(2000);
-        MTR_LVS.setTargetPosition(0);
-        MTR_RVS.setTargetPosition(0);
-        SRV_LG.setPosition(0.12);
-        SRV_RG.setPosition(0.12);
-        MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        MTR_LVS.setPower(0.6);
-        MTR_RVS.setPower(0.6);
-        sleep(1000);
-        SRV_LG.setPosition(0.22);
-        SRV_RG.setPosition(0.22);
-        sleep(1000);
+        sleep(500);
         MTR_LVS.setTargetPosition(2000);
         MTR_RVS.setTargetPosition(2000);
         MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -269,6 +245,35 @@ public class CompAutoRedBD extends LinearOpMode {
         SRV_LG.setPosition(0);
         SRV_RG.setPosition(0);
         sleep(1000);
+        SRV_R.setPosition(0.6);
+
+        MTR_LVS.setTargetPosition(0);
+        MTR_RVS.setTargetPosition(0);
+        SRV_LG.setPosition(0.12);
+        SRV_RG.setPosition(0.12);
+        MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_LVS.setPower(0.6);
+        MTR_RVS.setPower(0.6);
+        sleep(2000);
+        SRV_LG.setPosition(0.22);
+        SRV_RG.setPosition(0.22);
+        sleep(1000);
+        MTR_LVS.setTargetPosition(2000);
+        MTR_RVS.setTargetPosition(2000);
+        MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_LVS.setPower(0.6);
+        MTR_RVS.setPower(0.6);
+        sleep(3000);
+        SRV_LG.setPosition(0);
+        SRV_RG.setPosition(0);
+        MTR_LVS.setTargetPosition(0);
+        MTR_RVS.setTargetPosition(0);
+        MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_LVS.setPower(0.6);
+        MTR_RVS.setPower(0.6);
 
 		// Dilip TOD - ASsume this is where we park
         telemetry.addData("Path", "Complete");

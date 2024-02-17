@@ -94,6 +94,17 @@ public class Gripper{
         MTR_LVS.setPower(MTR_LVS_PW);
         MTR_RVS.setPower(MTR_RVS_PW);
     }
+    //TODO: Until we fix raising issue
+    public void manualMove(double y){
+        MTR_LVS.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        MTR_RVS.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        MTR_LVS.setPower(-y/2);
+        MTR_RVS.setPower(-y/2);
+        MTR_LVS.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        MTR_RVS.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        MTR_RVS.setPower(0);
+        MTR_LVS.setPower(0);
+    }
 
     // Method returns gripper servo positions
     public void getTelemetryData() {

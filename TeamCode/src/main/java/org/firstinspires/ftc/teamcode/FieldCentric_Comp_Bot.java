@@ -56,6 +56,7 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             //**************************************************************************************
             // ---------------------Gamepad 2 Controls ---------------------------------------------
             // Hotkeys (Automation to raise slide up)
+            /*
             if (gamepad2.y) {
                 myGripper.moveSlideDown();
                 myGripper.openGripper();
@@ -63,12 +64,15 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             else if (gamepad2.b){
                 myGripper.moveSlideLow();
             }
+             */
             else if (gamepad2.x){
                 myGripper.moveSlideMiddle();
             }
+            /*
             else if (gamepad2.a){
                 myGripper.moveSlideHigh();
             }
+             */
 
             // Hotkeys (to change gripper position)
             if (gamepad2.left_trigger != 0) {
@@ -77,6 +81,9 @@ public class FieldCentric_Comp_Bot extends LinearOpMode{
             else if (gamepad2.right_trigger != 0) {
                 myGripper.closeGripper();
             }
+
+            //TODO: Until we fix auto move after auto to move ramp down
+            if(gamepad2.left_stick_y > 0.1){myGripper.manualMove(gamepad2.left_stick_y);}
 
             //**************************************************************************************
             //--------------------- DEBUG Code --------------------------------------------

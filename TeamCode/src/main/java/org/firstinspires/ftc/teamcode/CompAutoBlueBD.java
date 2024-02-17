@@ -89,7 +89,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
  *  Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="CompAutoBluedBD", group="Robot")
+@Autonomous(name="CompAutoBlueBD", group="Robot")
 //@Disabled
 public class CompAutoBlueBD extends LinearOpMode {
 
@@ -201,7 +201,7 @@ public class CompAutoBlueBD extends LinearOpMode {
 
         // Ensure the robot is stationary.  Reset the encoders and set the motors to BRAKE mode
 		setDriveTrainMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		setDriveTrainZeroPower(DcMotor.ZeroPowerBehavior.BRAKE);
+		setDriveTrainZeroPower(DcMotor.ZeroPowerBehavior.FLOAT);
         
      
 
@@ -222,7 +222,7 @@ public class CompAutoBlueBD extends LinearOpMode {
 		// DILIP TODO NOTE: All the below are dummy bearings just to illustrate concept - we need to plot the correct bearing on the field 
 		// DILIP TODO: USe telemetry durign teleop to determine these bearings op
 
-        driveStraight(DRIVE_SPEED, 25.0, 0.0);    // Drive Forward 24"
+        driveStraight(DRIVE_SPEED, 25, 0.0);    // Drive Forward 25"
         turnToHeading( TURN_SPEED, -90.0);               // Turn  CW to -45 Degrees
         //holdHeading( TURN_SPEED, 90, 0.5);   // Hold -45 Deg heading for a 1/2 second
 
@@ -230,36 +230,12 @@ public class CompAutoBlueBD extends LinearOpMode {
         //holdHeading( TURN_SPEED,  45.0, 0.5);    // Hold  45 Deg heading for a 1/2 second
 		
 		// DILIP TODO - NEED to add code to call the methods in Gripper when we are at the right place
-        MTR_I.setPower(-.5);
+        MTR_I.setPower(-1);
         sleep(500);
         MTR_I.setPower(0);
         SRV_LG.setPosition(0.22);
         SRV_RG.setPosition(0.22);
-        sleep(1000);
-        MTR_LVS.setTargetPosition(2000);
-        MTR_RVS.setTargetPosition(2000);
-        MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        MTR_LVS.setPower(0.6);
-        MTR_RVS.setPower(0.6);
-        sleep(4000);
-        SRV_LG.setPosition(0);
-        SRV_RG.setPosition(0);
-        sleep(1000);
-        SRV_R.setPosition(0.6);
-        sleep(2000);
-        MTR_LVS.setTargetPosition(0);
-        MTR_RVS.setTargetPosition(0);
-        SRV_LG.setPosition(0.12);
-        SRV_RG.setPosition(0.12);
-        MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        MTR_LVS.setPower(0.6);
-        MTR_RVS.setPower(0.6);
-        sleep(1000);
-        SRV_LG.setPosition(0.22);
-        SRV_RG.setPosition(0.22);
-        sleep(1000);
+        sleep(500);
         MTR_LVS.setTargetPosition(2000);
         MTR_RVS.setTargetPosition(2000);
         MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -270,6 +246,35 @@ public class CompAutoBlueBD extends LinearOpMode {
         SRV_LG.setPosition(0);
         SRV_RG.setPosition(0);
         sleep(1000);
+        SRV_R.setPosition(0.6);
+
+        MTR_LVS.setTargetPosition(0);
+        MTR_RVS.setTargetPosition(0);
+        SRV_LG.setPosition(0.12);
+        SRV_RG.setPosition(0.12);
+        MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_LVS.setPower(0.6);
+        MTR_RVS.setPower(0.6);
+        sleep(2000);
+        SRV_LG.setPosition(0.22);
+        SRV_RG.setPosition(0.22);
+        sleep(1000);
+        MTR_LVS.setTargetPosition(2000);
+        MTR_RVS.setTargetPosition(2000);
+        MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_LVS.setPower(0.6);
+        MTR_RVS.setPower(0.6);
+        sleep(3000);
+        SRV_LG.setPosition(0);
+        SRV_RG.setPosition(0);
+        MTR_LVS.setTargetPosition(0);
+        MTR_RVS.setTargetPosition(0);
+        MTR_LVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_RVS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        MTR_LVS.setPower(0.6);
+        MTR_RVS.setPower(0.6);
 
 		// Dilip TOD - ASsume this is where we park
         telemetry.addData("Path", "Complete");
@@ -494,6 +499,7 @@ public class CompAutoBlueBD extends LinearOpMode {
         telemetry.addData("Heading- Target : Current", "%5.2f : %5.0f", targetHeading, getHeading());
         telemetry.addData("Error  : Steer Pwr",  "%5.1f : %5.1f", headingError, turnSpeed);
         telemetry.addData("Wheel Speeds L : R", "%5.2f : %5.2f", leftSpeed, rightSpeed);
+        telemetry.addData("Arm Height:", MTR_LVS.getCurrentPosition() + MTR_RVS.getCurrentPosition());
         telemetry.update();
     }
 
