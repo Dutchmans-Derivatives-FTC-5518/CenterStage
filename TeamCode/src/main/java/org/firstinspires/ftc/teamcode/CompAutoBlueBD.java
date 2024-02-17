@@ -226,7 +226,7 @@ public class CompAutoBlueBD extends LinearOpMode {
         turnToHeading( TURN_SPEED, -90.0);               // Turn  CW to -45 Degrees
         //holdHeading( TURN_SPEED, 90, 0.5);   // Hold -45 Deg heading for a 1/2 second
 
-        driveStraight(DRIVE_SPEED, -47, -90);  // Drive Forward 17" at -45 degrees (12"x and 12"y)
+        driveStraight(DRIVE_SPEED, -45, -90);  // Drive Forward 17" at -45 degrees (12"x and 12"y)
         //holdHeading( TURN_SPEED,  45.0, 0.5);    // Hold  45 Deg heading for a 1/2 second
 		
 		// DILIP TODO - NEED to add code to call the methods in Gripper when we are at the right place
