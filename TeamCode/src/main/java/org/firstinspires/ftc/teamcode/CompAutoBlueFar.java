@@ -219,7 +219,7 @@ public class CompAutoBlueFar extends LinearOpMode {
         //          holdHeading() is used after turns to let the heading stabilize
         //          Add a sleep(2000) after any step to keep the telemetry data visible for review
 		// DILIP TODO NOTE: All the below are dummy bearings just to illustrate concept - we need to plot the correct bearing on the field 
-		// DILIP TODO: USe telemetry durign teleop to determine these bearings op
+		// DILIP TODO: USe telemetry during teleop to determine these bearings op
 
         driveStraight(DRIVE_SPEED, 25.5, 0.0);    // Drive Forward 24"
         turnToHeading( TURN_SPEED, -90.0);               // Turn  CW to -45 Degrees
